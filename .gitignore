@@ -1,0 +1,19 @@
+node_modules/
+temporary-screenshots/
+
+# Screenshots de trabajo
+*.png
+*.jpg
+!brand_assets/**/*.jpg
+!brand_assets/**/*.jpeg
+
+# Scripts de desarrollo
+screenshot.mjs
+screenshot-section.mjs
+serve.mjs
+
+# Documentación interna
+BRIEF_PARA_CLAUDE_CODE.md
+PATCH_*.md
+package.json
+package-lock.json

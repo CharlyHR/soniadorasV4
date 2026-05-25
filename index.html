@@ -1,0 +1,2731 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Shiff &amp; Castro — Estudio Jurídico Especializado en Derecho Reproductivo y Salud</title>
+  <meta name="description" content="Estudio jurídico especializado en derecho reproductivo y salud. Más de 11 años de trayectoria en Buenos Aires, Argentina." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Unicase:wght@400;500;600&family=Italiana&family=Montserrat:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ══════════════════════════════════════════════════════════
+       RESET
+    ══════════════════════════════════════════════════════════ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    img  { display: block; max-width: 100%; }
+    a, a:visited, a:link    { text-decoration: none; color: inherit; }
+    ul   { list-style: none; }
+
+    /* ══════════════════════════════════════════════════════════
+       TOKENS — V4.2
+    ══════════════════════════════════════════════════════════ */
+    :root {
+      /* Verdes — tres niveles del mismo HSL family */
+      --sage-deep:  #5C6B4F;
+      --sage-hover: #4F5C44;   /* hover de cards, más oscuro que sage-deep */
+      --sage:       #738063;
+      --sage-light: #8A9579;
+
+      /* Cremas */
+      --bone:   #EAE6E3;
+      --paper:  #F5F2EC;
+
+      /* Tinta */
+      --ink: #5F5143;
+
+      /* Brass — dos intensidades */
+      --brass:     #C9A875;
+      --brass-dim: #A88B5C;
+
+      /* Hairlines */
+      --line-warm: rgba(168, 139, 92, 0.30);
+      --line-cool: rgba(95,  81,  67, 0.18);
+      --line-bone: rgba(234, 230, 227, 0.22);
+
+      /* Tipografías */
+      --font-display: 'Italiana', 'Cormorant Unicase', serif;
+      --font-body:    'Montserrat', system-ui, sans-serif;
+
+      /* Tracking */
+      --track-wide:  0.14em;
+      --track-wider: 0.22em;
+
+      /* Espaciado de sección */
+      --space-section: clamp(52px, 6.5vw, 88px);
+
+      /* Contenedor */
+      --container: 1200px;
+      --gutter:    clamp(24px, 6vw, 96px);
+
+      /* ── V4.2: sistema de transiciones ── */
+      --ease:   cubic-bezier(0.4, 0, 0.2, 1);
+      --t-fast: 200ms;
+      --t-base: 500ms;
+      --t-slow: 800ms;
+
+      /* Scroll progress */
+      --scroll-pct: 0%;
+    }
+
+    /* ══════════════════════════════════════════════════════════
+       BASE
+    ══════════════════════════════════════════════════════════ */
+    body {
+      font-family: var(--font-body);
+      font-weight: 400;
+      font-size: 15px;
+      color: var(--ink);
+      background: var(--bone);
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    section { position: relative; overflow: hidden; }
+
+    .container {
+      max-width: var(--container);
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    /* ══════════════════════════════════════════════════════════
+       GRANO (textura editorial sobre verdes)
+    ══════════════════════════════════════════════════════════ */
+    .grain-overlay {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0.06;
+      mix-blend-mode: overlay;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    /* ══════════════════════════════════════════════════════════
+       TIPOGRAFÍA UTILITARIA
+    ══════════════════════════════════════════════════════════ */
+    .display {
+      font-family: var(--font-display);
+      text-transform: uppercase;
+      line-height: 1.0;
+      letter-spacing: 0.02em;
+    }
+
+    .eyebrow {
+      font-family: var(--font-body);
+      font-weight: 300;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: var(--track-wider);
+      color: var(--brass-dim);
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--line-warm);
+      display: inline-block;
+      margin-bottom: 24px;
+    }
+
+    .eyebrow--bone {
+      color: rgba(234,230,227,0.70);
+      border-color: var(--line-bone);
+    }
+
+    /* ══════════════════════════════════════════════════════════
+       SECTION HEADER (número romano + título)
+    ══════════════════════════════════════════════════════════ */
+    .section-header {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: clamp(28px, 3.5vw, 44px);
+    }
+
+    .section-number { display: none; }
+
+    .section-titles { display: flex; flex-direction: column; }
+
+    /* ══════════════════════════════════════════════════════════
+       STICKY VERTICAL LABEL
+    ══════════════════════════════════════════════════════════ */
+    .sticky-label {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform-origin: center center;
+      transform: translateY(-50%) rotate(-90deg);
+      font-family: var(--font-body);
+      font-weight: 400;
+      font-size: 9px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--brass-dim);
+      white-space: nowrap;
+      pointer-events: none;
+      z-index: 2;
+      opacity: 0.65;
+    }
+
+    .bg-sage .sticky-label,
+    .bg-sage-deep .sticky-label {
+      color: var(--brass);
+      opacity: 0.55;
+    }
+
+    @media (max-width: 1023px) { .sticky-label { display: none; } }
+
+    /* ══════════════════════════════════════════════════════════
+       LISTAS (achievement list)
+    ══════════════════════════════════════════════════════════ */
+    .achievement-list {
+      list-style: none;
+      padding: 0;
+      margin: 20px 0;
+    }
+
+    .achievement-list li {
+      font-family: var(--font-body);
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 1.65;
+      color: var(--ink);
+      padding: 11px 0 11px 28px;
+      border-bottom: 1px solid var(--line-cool);
+      position: relative;
+    }
+
+    .achievement-list li:first-child { border-top: 1px solid var(--line-cool); }
+
+    .achievement-list li::before {
+      content: "—";
+      position: absolute;
+      left: 0;
+      top: 11px;
+      color: var(--brass-dim);
+      font-weight: 300;
+    }
+
+    .bg-sage .achievement-list li,
+    .bg-sage-deep .achievement-list li {
+      color: rgba(234,230,227,0.85);
+      border-bottom-color: var(--line-bone);
+    }
+    .bg-sage .achievement-list li:first-child,
+    .bg-sage-deep .achievement-list li:first-child { border-top-color: var(--line-bone); }
+    .bg-sage .achievement-list li::before,
+    .bg-sage-deep .achievement-list li::before { color: var(--brass); }
+
+    /* ══════════════════════════════════════════════════════════
+       LINKS Y BOTONES
+    ══════════════════════════════════════════════════════════ */
+    .hairline-link {
+      font-family: var(--font-body);
+      font-weight: 300;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: var(--track-wide);
+      color: var(--ink);
+      border-bottom: 1px solid var(--line-cool);
+      padding-bottom: 2px;
+      display: inline-block;
+      transition: color 0.2s ease, border-color 0.2s ease;
+    }
+    .hairline-link:hover { color: var(--sage-deep); border-color: var(--sage-deep); }
+
+    .hairline-link--bone {
+      color: rgba(234,230,227,0.80);
+      border-color: rgba(234,230,227,0.30);
+    }
+    .hairline-link--bone:hover { color: var(--bone); border-color: var(--bone); }
+
+    .btn-outline {
+      font-family: var(--font-body);
+      font-weight: 500;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: var(--track-wide);
+      color: rgba(234,230,227,0.95);
+      border: 1px solid rgba(234,230,227,0.75);
+      padding: 15px 32px;
+      border-radius: 0;
+      display: inline-block;
+      transition: color var(--t-base) var(--ease),
+                  border-color var(--t-base) var(--ease);
+    }
+    .btn-outline:hover { background: transparent; color: var(--sage-deep); }
+
+    .btn-outline-large {
+      font-family: var(--font-display);
+      font-size: clamp(22px, 3vw, 36px);
+      text-transform: uppercase;
+      letter-spacing: var(--track-wide);
+      color: var(--bone);
+      border: 1px solid rgba(234,230,227,0.75);
+      padding: clamp(20px, 2.5vw, 32px) clamp(40px, 5vw, 72px);
+      border-radius: 0;
+      display: inline-block;
+      transition: background 0.2s ease, color 0.2s ease;
+    }
+    .btn-outline-large:hover { background: var(--bone); color: var(--sage-deep); }
+
+    /* ══════════════════════════════════════════════════════════
+       FOTO TRATAMIENTO
+    ══════════════════════════════════════════════════════════ */
+    .photo-wrap {
+      position: relative;
+      overflow: hidden;
+    }
+    .photo-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: grayscale(40%) contrast(1.05);
+      display: block;
+    }
+    .photo-wrap::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: var(--sage-deep);
+      opacity: 0.15;
+      mix-blend-mode: multiply;
+      pointer-events: none;
+    }
+
+    /* ══════════════════════════════════════════════════════════
+       HEADER
+    ══════════════════════════════════════════════════════════ */
+    #site-header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 0 var(--gutter);
+      height: 68px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    #site-header.scrolled {
+      background: var(--paper);
+      box-shadow: 0 1px 0 var(--line-cool);
+    }
+
+    .header-wordmark {
+      font-family: var(--font-display);
+      font-size: 19px;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--bone);
+      transition: color 0.3s ease, -webkit-text-stroke 0.3s ease;
+      white-space: nowrap;
+      /* Stroke sutil que engrosa el trazo sin cambiar la fuente */
+      -webkit-text-stroke: 0.4px currentColor;
+    }
+    .header-wordmark .amp {
+      font-style: italic;
+      color: var(--brass);
+      -webkit-text-stroke: 0px;
+    }
+    #site-header.scrolled .header-wordmark { color: var(--sage-deep); }
+    #site-header.scrolled .header-wordmark .amp { color: var(--brass-dim); }
+
+    /* Banda de protección top del hero — garantiza legibilidad del header siempre */
+    #hero::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 140px;
+      background: linear-gradient(to bottom, rgba(0,0,0,0.52) 0%, transparent 100%);
+      z-index: 3;
+      pointer-events: none;
+    }
+
+    .header-nav {
+      display: flex;
+      align-items: center;
+      gap: clamp(18px, 2.5vw, 36px);
+    }
+    .header-nav a {
+      font-family: var(--font-body);
+      font-weight: 400;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: var(--track-wide);
+      color: rgba(234,230,227,0.90);
+      transition: color 0.2s ease;
+      text-shadow: 0 1px 8px rgba(0,0,0,0.5);
+    }
+    #site-header.scrolled .header-nav a {
+      color: var(--ink);
+      text-shadow: none;
+    }
+    .header-nav a:hover { color: var(--bone); }
+    #site-header.scrolled .header-nav a:hover { color: var(--sage-deep); }
+
+    .header-nav .nav-cta {
+      color: rgba(234,230,227,0.75);
+      border-bottom: 1px solid rgba(234,230,227,0.30);
+      padding-bottom: 1px;
+    }
+    #site-header.scrolled .header-nav .nav-cta {
+      color: var(--ink);
+      border-color: var(--line-cool);
+    }
+
+    .nav-toggle {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      flex-direction: column;
+      gap: 5px;
+      padding: 4px;
+      z-index: 201;
+    }
+    .nav-toggle span {
+      display: block;
+      width: 22px;
+      height: 1px;
+      background: var(--bone);
+      transition: background 0.3s ease;
+    }
+    #site-header.scrolled .nav-toggle span { background: var(--sage-deep); }
+
+    /* ══════════════════════════════════════════════════════════
+       HERO
+    ══════════════════════════════════════════════════════════ */
+    #hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      overflow: hidden;
+      background: var(--sage-deep);
+      isolation: isolate;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      background-color: var(--sage-deep);
+      background-image: url('brand_assets/Fondos/1-Biblioteca.jpg');
+      background-size: cover;
+      background-position: center;
+    }
+
+    .hero-video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center center;
+      display: block;
+      filter: none;
+      opacity: 0;
+      transition: opacity 1.2s ease-out;
+    }
+
+    .hero-video.is-ready {
+      opacity: 1;
+    }
+
+    /* Tinte verde sobre el video */
+    .hero-tint {
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      background: var(--sage-deep);
+      opacity: 0.55;
+      mix-blend-mode: multiply;
+      pointer-events: none;
+    }
+
+    /* Grano del hero por encima del tinte */
+    #hero > .grain-overlay {
+      z-index: 3;
+    }
+
+    @media (max-width: 768px) {
+      .hero-video { display: none; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .hero-video { display: none; }
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 4;
+      padding: 0 var(--gutter);
+      padding-bottom: clamp(80px, 10vw, 120px);
+      padding-top: clamp(160px, 22vh, 260px);
+      max-width: 980px;
+    }
+
+    .hero-eyebrow {
+      font-family: var(--font-body);
+      font-weight: 300;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: var(--track-wider);
+      color: rgba(234,230,227,0.75);
+      display: block;
+      margin-bottom: 32px;
+    }
+
+    .hero-wordmark {
+      font-family: var(--font-display);
+      font-size: clamp(56px, 8vw, 128px);
+      text-transform: uppercase;
+      color: var(--bone);
+      line-height: 1.0;
+      letter-spacing: 0.04em;
+      display: block;
+      white-space: nowrap;
+      margin-bottom: 28px;
+    }
+
+    .hero-wordmark .amp { color: var(--brass); font-style: italic; letter-spacing: 0; }
+
+    .hero-subtitle {
+      font-family: var(--font-display);
+      font-size: clamp(20px, 2.5vw, 32px);
+      text-transform: uppercase;
+      color: rgba(234,230,227,0.88);
+      letter-spacing: var(--track-wide);
+      display: block;
+      margin-bottom: 28px;
+    }
+
+    .hero-inscription {
+      font-family: var(--font-body);
+      font-weight: 300;
+      font-style: normal;
+      font-size: 15px;
+      color: rgba(234,230,227,0.80);
+      max-width: 520px;
+      margin-bottom: 48px;
+      line-height: 1.75;
+      letter-spacing: 0.04em;
+    }
+
+    .hero-ctas {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-bottom: 64px;
+    }
+
+    .hero-established {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      z-index: 4;
+      padding: 16px var(--gutter);
+      border-top: 1px solid rgba(234,230,227,0.12);
+      font-family: var(--font-body);
+      font-weight: 300;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: var(--track-wider);
+      color: rgba(234,230,227,0.55);
+    }
+
+    /* ══════════════════════════════════════════════════════════
+       INTRO — I
+    ══════════════════════════════════════════════════════════ */
+    #intro {
+      background: var(--bone);
+      padding: clamp(52px, 6.5vw, 88px) var(--gutter);
+    }
+
+    .intro-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(48px, 7vw, 100px);
+      align-items: center;
+      align-items: start;
+      width: 100%;
+      max-width: var(--container);
+    }
+
+    .intro-title {
+      font-size: clamp(48px, 6vw, 88px);
+      color: var(--sage-deep);
+      margin-bottom: 8px;
+      line-height: 1.0;
+    }
+
+    .intro-subtitle {
+      font-family: var(--font-body);
+      font-weight: 400;
+      font-style: italic;
+      font-size: 16px;
+      color: var(--ink);
+      margin-top: 12px;
+    }
+
+    .intro-body {
+      font-size: 15px;
+      color: var(--ink);
+      line-height: 1.85;
+      margin-bottom: 40px;
+      padding-top: 0;
+    }
+
+    .intro-links {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      align-items: flex-start;
+    }
+
+    /* ══════════════════════════════════════════════════════════
+       SOCIOS — II & III
+    ══════════════════════════════════════════════════════════ */
+    .socio-section {
+      padding: var(--space-section) var(--gutter);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .socio-section--paula  { background: var(--paper); }
+    .socio-section--martin { background: var(--bone); }
+
+    .socio-grid {
+      display: grid;
+      grid-template-columns: 360px 1fr;
+      gap: clamp(48px, 6vw, 88px);
+      align-items: start;
+      max-width: var(--container);
+      width: 100%;
+    }
+
+    .socio-grid--reversed { grid-template-columns: 1fr 360px; }
+    .socio-grid--reversed .socio-photo { order: 2; }
+    .socio-grid--reversed .socio-info  { order: 1; }
+
+    .socio-photo { width: 100%; aspect-ratio: 3 / 4; }
+
+    .socio-info { padding-top: 8px; }
+
+    .socio-name {
+      font-size: clamp(40px, 5vw, 72px);
+      color: var(--sage-deep);
+      margin-bottom: 12px;
+    }
+
+    .socio-title-line {
+      font-family: var(--font-body);
+      font-weight: 300;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: var(--track-wider);
+      color: var(--ink);
+      display: block;
+      margin-bottom: 32px;
+    }
+
+    .socio-bio {
+      font-size: 15px;
+      color: var(--ink);
+      line-height: 1.8;
+      margin-bottom: 4px;
+    }
+
+    .logros-title {
+      font-family: var(--font-body);
+      font-weight: 500;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: var(--track-wide);
+      color: var(--sage-deep);
+      display: block;
+      margin-top: 24px;
+      margin-bottom: 0;
+    }
+
+    /* ══════════════════════════════════════════════════════════
+       EL ESTUDIO — II (layout 2 columnas, 1 pantalla)
+    ══════════════════════════════════════════════════════════ */
+    #el-estudio {
+      background: var(--sage);
+    }
+
+    /* Grid principal: col izq = número + título, col der = cita + texto */
+    .estudio-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(48px, 6vw, 88px);
+      align-items: start;
+      max-width: var(--container);
+      width: 100%;
+    }
+
+    .estudio-left {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .estudio-num {
+      font-family: var(--font-display);
+      font-size: clamp(18px, 2vw, 26px);
+      color: var(--brass);
+      line-height: 1;
+      letter-spacing: 0.08em;
+      opacity: 0.6;
+      display: inline-block;
+      margin-bottom: 10px;
+    }
+
+    .estudio-title {
+      font-size: clamp(36px, 4.5vw, 68px);
+      color: var(--bone);
+      line-height: 1.05;
+      margin-bottom: 0;
+    }
+
+    /* Línea horizontal brass bajo el título */
+    .estudio-title-rule {
+      width: 48px;
+      height: 1px;
+      background: var(--brass);
+      margin: 20px 0;
+      opacity: 0.7;
+    }
+
+    .estudio-left-note {
+      font-family: var(--font-body);
+      font-weight: 300;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: var(--track-wider);
+      color: rgba(234,230,227,0.40);
+      line-height: 1.7;
+    }
+
+    /* Columna derecha */
+    .estudio-right {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      padding-top: 8px;
+    }
+
+    /* Cita en línea, sin bloque enorme */
+    .estudio-quote {
+      font-family: var(--font-display);
+      font-size: clamp(18px, 2.2vw, 28px);
+      color: var(--bone);
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      line-height: 1.25;
+      margin-bottom: 28px;
+      padding-left: 20px;
+      border-left: 2px solid var(--brass);
+      opacity: 0.92;
+    }
+
+    .estudio-body {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .estudio-body p {
+      font-size: 14px;
+      color: rgba(234,230,227,0.72);
+      line-height: 1.8;
+      margin: 0;
+    }
+
+    /* Separador entre párrafos 1 y 2 — el "golpe" de la frase corta */
+    .estudio-body .estudio-punch {
+      font-family: var(--font-display);
+      font-size: clamp(15px, 1.6vw, 20px);
+      color: rgba(234,230,227,0.88);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      line-height: 1.3;
+      padding: 14px 0;
+      border-top: 1px solid var(--line-bone);
+      border-bottom: 1px solid var(--line-bone);
+      margin: 4px 0;
+    }
+
+    @media (max-width: 860px) {
+      .estudio-grid { grid-template-columns: 1fr; gap: 32px; }
+      .estudio-num  { font-size: clamp(16px, 3.5vw, 22px); }
+    }
+
+    /* ══════════════════════════════════════════════════════════
+       TRAYECTORIA — V
+    ══════════════════════════════════════════════════════════ */
+    #trayectoria {
+      background: var(--sage-deep);
+    }
+
+    .trayectoria-rule {
+      border: none;
+      border-top: 1px solid var(--line-bone);
+      max-width: var(--container);
+      margin-bottom: clamp(20px, 3vw, 32px);
+    }
+
+    .timeline-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      max-width: var(--container);
+      width: 100%;
+    }
+
+    .milestone-card {
+      background: #4F5C44;
+      border: 1px solid var(--line-warm);
+      padding: 24px 28px 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      position: relative;
+    }
+
+    .milestone-year {
+      font-family: var(--font-body);
+      font-weight: 500;
+      font-size: 11px;
+      color: var(--brass);
+      line-height: 1;
+      letter-spacing: var(--track-wide);
+      text-transform: uppercase;
+      display: block;
+      opacity: 0.9;
+    }
+
+    .milestone-rule {
+      width: 28px;
+      height: 1px;
+      background: var(--brass);
+      opacity: 0.5;
+      flex-shrink: 0;
+    }
+
+    .milestone-text {
+      font-family: var(--font-body);
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 1.75;
+      color: rgba(234,230,227,0.80);
+      margin: 0;
+    }
+
+    /* ══════════════════════════════════════════════════════════
+       NUESTRA HISTORIA — VI
+    ══════════════════════════════════════════════════════════ */
+    #historia {
+      background: var(--paper);
+      padding: var(--space-section) var(--gutter);
+    }
+
+    /* Two-column editorial layout: year anchor left, text right */
+    .historia-grid {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: clamp(40px, 5vw, 72px);
+      align-items: start;
+      max-width: var(--container);
+      width: 100%;
+    }
+
+    .historia-left {
+      position: sticky;
+      top: calc(68px + 24px); /* header height + breathing room */
+    }
+
+    .historia-year {
+      font-size: clamp(72px, 10vw, 140px);
+      color: var(--sage-deep);
+      line-height: 0.85;
+      letter-spacing: -0.02em;
+      display: block;
+      margin-bottom: 24px;
+    }
+
+    .historia-year-label {
+      font-family: var(--font-body);
+      font-weight: 300;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: var(--track-wider);
+      color: var(--brass-dim);
+      display: block;
+      margin-top: 16px;
+      padding-top: 16px;
+      border-top: 1px solid var(--line-cool);
+    }
+
+    .historia-body {
+      font-size: 15px;
+      color: var(--ink);
+      line-height: 1.85;
+    }
+    .historia-body p + p { margin-top: 20px; }
+
+    .historia-body .dropcap::first-letter {
+      font-family: var(--font-display);
+      font-size: 4.2em;
+      float: left;
+      line-height: 0.75;
+      padding-right: 10px;
+      padding-top: 6px;
+      color: var(--sage-deep);
+    }
+
+    .historia-section-label {
+      font-family: var(--font-body);
+      font-weight: 500;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: var(--track-wide);
+      color: var(--sage-deep);
+      display: block;
+      margin: 28px 0 0;
+    }
+
+    @media (max-width: 900px) {
+      .historia-grid { grid-template-columns: 1fr; }
+      .historia-left { position: static; }
+      .historia-year { font-size: clamp(64px, 12vw, 100px); margin-bottom: 16px; }
+    }
+
+    /* ══════════════════════════════════════════════════════════
+       SERVICIOS — VII
+    ══════════════════════════════════════════════════════════ */
+    #servicios {
+      background: var(--sage);
+      padding: var(--space-section) var(--gutter);
+    }
+
+    /* Header: eyebrow arriba, título abajo */
+    .servicios-header {
+      max-width: var(--container);
+      margin: 0 auto clamp(32px, 4vw, 52px);
+      padding-bottom: 24px;
+      border-bottom: 1px solid var(--line-bone);
+    }
+
+    .servicios-header-right {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .servicios-title {
+      font-family: var(--font-display);
+      font-size: clamp(28px, 3.5vw, 52px);
+      color: var(--bone);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      line-height: 1;
+    }
+
+    .servicios-bajada {
+      font-family: var(--font-body);
+      font-weight: 300;
+      font-size: 14px;
+      color: rgba(234,230,227,0.72);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    /* Grid de servicios: 4 columnas con líneas verticales */
+    .servicios-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+      max-width: var(--container);
+      margin: 0 auto clamp(36px, 4.5vw, 56px);
+      border: 1px solid var(--line-bone);
+    }
+
+    .servicio-card {
+      background: rgba(0,0,0,0.18);
+      border-right: 1px solid var(--line-bone);
+      border-left: 2px solid transparent;
+      padding: clamp(28px, 3vw, 44px) clamp(22px, 2.5vw, 34px);
+      position: relative;
+      display: grid;
+      grid-template-rows: auto auto auto 1fr;
+      gap: 0;
+      transition: background var(--t-base) var(--ease),
+                  border-left-color var(--t-base) var(--ease);
+      overflow: hidden;
+    }
+    .servicio-card:last-child { border-right: none; }
+    .servicio-card:hover {
+      background: rgba(0,0,0,0.32);
+      border-left-color: var(--brass);
+    }
+
+    .servicio-card > * { position: relative; z-index: 1; }
+
+    .servicio-idx {
+      font-family: var(--font-body);
+      font-weight: 300;
+      font-size: 10px;
+      letter-spacing: var(--track-wider);
+      color: var(--brass);
+      text-transform: uppercase;
+      opacity: 0.9;
+      margin-bottom: 20px;
+      display: block;
+    }
+
+    .servicio-nombre {
+      font-family: var(--font-display);
+      font-size: clamp(15px, 1.5vw, 20px);
+      color: var(--bone);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      line-height: 1.25;
+      margin-bottom: 18px;
+    }
+
+    .servicio-rule {
+      width: 24px;
+      height: 1px;
+      background: var(--brass);
+      opacity: 0.6;
+      display: block;
+      margin-bottom: 16px;
+    }
+
+    .servicio-desc {
+      font-family: var(--font-body);
+      font-weight: 300;
+      font-size: 13px;
+      line-height: 1.75;
+      color: rgba(234,230,227,0.78);
+      margin: 0;
+      align-self: start;
+    }
+
+    /* Bloque ¿Qué incluye? — dos columnas */
+    .servicios-incluye {
+      max-width: var(--container);
+      margin: 0 auto clamp(28px, 3.5vw, 44px);
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 0 clamp(32px, 5vw, 80px);
+      padding-top: 28px;
+      border-top: 1px solid var(--line-bone);
+      align-items: start;
+    }
+
+    .incluye-title {
+      font-family: var(--font-body);
+      font-weight: 300;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: var(--track-wider);
+      color: var(--brass);
+      white-space: nowrap;
+      padding-top: 2px;
+    }
+
+    .incluye-list {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+    }
+
+    .incluye-list li {
+      font-family: var(--font-body);
+      font-weight: 300;
+      font-size: 13px;
+      color: rgba(234,230,227,0.72);
+      line-height: 1.6;
+      padding: 9px 0 9px 20px;
+      border-bottom: 1px solid rgba(234,230,227,0.09);
+      position: relative;
+    }
+    .incluye-list li::before {
+      content: "—";
+      position: absolute;
+      left: 0;
+      color: var(--brass);
+      opacity: 0.65;
+    }
+
+    /* CTA botón principal de la sección */
+    .servicios-cta {
+      max-width: var(--container);
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 24px;
+    }
+
+    .btn-servicios-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 14px;
+      font-family: var(--font-body);
+      font-weight: 300;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: var(--track-wider);
+      color: var(--sage-deep);
+      background: var(--bone);
+      border: none;
+      padding: 16px 36px;
+      cursor: pointer;
+      text-decoration: none;
+      position: relative;
+      overflow: hidden;
+      transition: color var(--t-fast) var(--ease);
+    }
+
+    .btn-servicios-cta::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: var(--brass);
+      transform: translateX(-101%);
+      transition: transform var(--t-base) var(--ease);
+      z-index: 0;
+    }
+
+    .btn-servicios-cta:hover::before { transform: translateX(0); }
+    .btn-servicios-cta:hover { color: var(--bone); }
+
+    .btn-servicios-cta span { position: relative; z-index: 1; }
+
+    .btn-servicios-cta .arrow {
+      font-size: 14px;
+      transition: transform var(--t-fast) var(--ease);
+    }
+    .btn-servicios-cta:hover .arrow { transform: translateX(4px); }
+
+    /* ══════════════════════════════════════════════════════════
+       NÚMEROS — VIII
+    ══════════════════════════════════════════════════════════ */
+    #numeros {
+      background: var(--paper);
+      /* padding manejado por div interior — no doble-padding */
+    }
+
+    .numeros-header { margin-bottom: clamp(24px, 3vw, 36px); }
+
+    .numeros-grid {
+      display: flex;
+      max-width: var(--container);
+      width: 100%;
+      align-items: flex-start;
+    }
+
+    .numero-item {
+      flex: 1 1 0;
+      min-width: 0;
+      padding: 20px clamp(16px, 2vw, 36px);
+      text-align: center;
+      border-right: 1px solid var(--line-cool);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0;
+      cursor: default;
+      transition: transform 700ms var(--ease);
+    }
+    .numero-item:first-child { padding-left: 0; text-align: left; align-items: flex-start; }
+    .numero-item:last-child  { border-right: none; padding-right: 0; }
+
+    /* Cifra principal */
+    .big-number {
+      font-family: var(--font-display);
+      font-size: clamp(32px, 4vw, 72px);
+      color: var(--sage-deep);
+      line-height: 0.95;
+      display: block;
+      white-space: nowrap;
+      transition: transform 700ms var(--ease), color 700ms var(--ease);
+    }
+
+    /* Hairline brass — oculta por defecto, expande en hover */
+    .number-rule {
+      width: 0;
+      height: 1px;
+      background: var(--brass);
+      transition: width 700ms var(--ease);
+      margin-top: 16px;
+      margin-bottom: 8px;
+      flex-shrink: 0;
+    }
+
+    /* Label */
+    .number-label {
+      font-family: var(--font-body);
+      font-weight: 300;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: var(--track-wider);
+      color: rgba(95, 81, 67, 0.55);
+      line-height: 1.65;
+      transition: color 700ms var(--ease), transform 700ms var(--ease);
+    }
+
+    /* ── Hover premium ── */
+    .numero-item:hover .big-number {
+      transform: translateY(-6px);
+      color: var(--sage-deep);
+    }
+    .numero-item:hover .number-rule {
+      width: 48px;
+    }
+    .numero-item:hover .number-label {
+      color: var(--ink);
+      transform: translateY(4px);
+    }
+
+    /* ══════════════════════════════════════════════════════════
+       FAQ — IX
+    ══════════════════════════════════════════════════════════ */
+    #faq {
+      background: var(--sage);
+      border-top: none;
+    }
+
+    .faq-inner { max-width: 860px; }
+
+    .faq-section-title {
+      font-size: clamp(32px, 4.5vw, 56px);
+      color: var(--bone);
+      margin-bottom: clamp(24px, 3vw, 36px);
+      margin-top: 4px;
+    }
+
+    .faq-item { border-top: 1px solid var(--line-bone); }
+    .faq-item:last-child { border-bottom: 1px solid var(--line-bone); }
+
+    .faq-question {
+      width: 100%;
+      background: none;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 24px 0;
+      text-align: left;
+      gap: 24px;
+    }
+
+    .faq-q-text {
+      font-family: var(--font-body);
+      font-weight: 500;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: var(--track-wide);
+      color: var(--bone);
+      line-height: 1.5;
+    }
+
+    .faq-symbol {
+      font-family: var(--font-body);
+      font-weight: 300;
+      font-size: 22px;
+      color: var(--brass);
+      flex-shrink: 0;
+      width: 20px;
+      text-align: center;
+      line-height: 1;
+    }
+
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.38s ease;
+    }
+    .faq-answer-inner {
+      padding-bottom: 28px;
+      font-family: var(--font-body);
+      font-weight: 400;
+      font-style: italic;
+      font-size: 15px;
+      color: rgba(234,230,227,0.80);
+      line-height: 1.75;
+    }
+    .faq-item.open .faq-answer { max-height: 500px; }
+
+    /* ══════════════════════════════════════════════════════════
+       CONTACTO — X
+    ══════════════════════════════════════════════════════════ */
+    #contacto {
+      background: var(--sage-deep);
+      padding: var(--space-section) var(--gutter);
+    }
+
+    .contacto-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(48px, 8vw, 120px);
+      align-items: start;
+      max-width: var(--container);
+      width: 100%;
+    }
+
+    .contacto-title {
+      font-size: clamp(36px, 5vw, 64px);
+      color: var(--bone);
+      margin-bottom: 6px;
+      margin-top: 6px;
+    }
+
+    .contacto-title-rule {
+      width: 48px;
+      height: 1px;
+      background: var(--brass);
+      margin-bottom: 28px;
+      opacity: 0.7;
+    }
+
+    .contacto-row {
+      display: flex;
+      gap: 20px;
+      padding: 11px 0;
+      border-bottom: 1px solid var(--line-bone);
+      align-items: baseline;
+    }
+    .contacto-row:first-child { border-top: 1px solid var(--line-bone); }
+
+    .contacto-label {
+      font-family: var(--font-body);
+      font-weight: 300;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: var(--track-wider);
+      color: var(--brass);
+      flex-shrink: 0;
+      width: 64px;
+    }
+
+    .contacto-value {
+      font-family: var(--font-body);
+      font-weight: 300;
+      font-size: 14px;
+      color: rgba(234,230,227,0.82);
+      line-height: 1.5;
+    }
+
+    /* CTA derecha — sin caja anidada */
+    .contacto-cta-wrap {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+      height: 100%;
+      padding-top: 48px;
+      gap: 0;
+    }
+
+    .contacto-cta-label {
+      font-family: var(--font-body);
+      font-weight: 300;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: var(--track-wider);
+      color: rgba(234,230,227,0.40);
+      margin-bottom: 20px;
+      display: block;
+    }
+
+    .contacto-cta-intro {
+      font-family: var(--font-display);
+      font-size: clamp(22px, 3vw, 40px);
+      color: var(--bone);
+      line-height: 1.15;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      margin-bottom: 32px;
+    }
+
+    .contacto-cta-intro em {
+      font-style: italic;
+      color: var(--brass);
+    }
+
+    /* ══════════════════════════════════════════════════════════
+       FOOTER
+    ══════════════════════════════════════════════════════════ */
+    #footer {
+      background: var(--sage-deep);
+      padding: clamp(48px, 7vw, 96px) var(--gutter);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .footer-top-rule {
+      border: none;
+      border-top: 1px solid var(--brass);
+      opacity: 0.28;
+      margin-bottom: clamp(40px, 5vw, 64px);
+      max-width: var(--container);
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: clamp(32px, 5vw, 64px);
+      max-width: var(--container);
+      margin-bottom: clamp(40px, 5vw, 64px);
+    }
+
+    .footer-wordmark {
+      font-family: var(--font-display);
+      font-size: 22px;
+      text-transform: uppercase;
+      letter-spacing: var(--track-wide);
+      color: var(--bone);
+      display: block;
+      margin-bottom: 8px;
+    }
+    .footer-wordmark .amp { color: var(--brass); font-style: italic; }
+
+    .footer-tagline {
+      font-family: var(--font-body);
+      font-weight: 300;
+      font-style: italic;
+      font-size: 13px;
+      color: rgba(234,230,227,0.50);
+    }
+
+    .footer-nav-col a {
+      display: block;
+      font-family: var(--font-body);
+      font-weight: 300;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: var(--track-wide);
+      color: rgba(234,230,227,0.50);
+      padding: 5px 0;
+      transition: color 0.2s ease;
+    }
+    .footer-nav-col a:hover { color: var(--bone); }
+
+    .footer-legal {
+      font-family: var(--font-body);
+      font-weight: 300;
+      font-size: 11px;
+      color: rgba(234,230,227,0.38);
+      line-height: 1.85;
+    }
+
+    .footer-bottom {
+      max-width: var(--container);
+      border-top: 1px solid rgba(201,168,117,0.18);
+      padding-top: 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .footer-copy {
+      font-family: var(--font-body);
+      font-weight: 300;
+      font-size: 11px;
+      color: rgba(234,230,227,0.32);
+    }
+
+    .footer-specialty {
+      font-family: var(--font-body);
+      font-weight: 300;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: var(--track-wider);
+      color: rgba(234,230,227,0.28);
+    }
+
+    /* ══════════════════════════════════════════════════════════
+       RESPONSIVE
+    ══════════════════════════════════════════════════════════ */
+    @media (max-width: 1024px) {
+      .intro-grid,
+      .contacto-grid,
+      .estudio-header-wrap .section-header {
+        grid-template-columns: 1fr;
+      }
+      .contacto-cta-wrap { padding-top: 32px; }
+      .servicios-grid { grid-template-columns: 1fr 1fr; }
+      .servicios-incluye { grid-template-columns: 1fr; gap: 16px; }
+      .incluye-list { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 900px) {
+      .servicios-grid { grid-template-columns: 1fr 1fr !important; }
+      .servicio-card { border-right: none; border-bottom: 1px solid var(--line-bone); }
+      .timeline-grid {
+        grid-template-columns: 1fr;
+      }
+      .numeros-grid {
+        flex-wrap: wrap;
+      }
+      .numero-item {
+        flex: 1 1 40%;
+        min-width: 160px;
+      }
+      .numero-item:nth-child(2) { border-right: none; }
+      .numero-item:nth-child(3) { border-right: 1px solid var(--line-cool); border-top: 1px solid var(--line-cool); padding-top: 24px; }
+      .numero-item:nth-child(4) { border-right: none; border-top: 1px solid var(--line-cool); padding-top: 24px; }
+      .incluye-list { flex-direction: column; }
+      .footer-grid  { grid-template-columns: 1fr; gap: 32px; }
+      .display-quote { padding: 56px 72px; }
+    }
+
+    @media (max-width: 768px) {
+      .socio-grid,
+      .socio-grid--reversed {
+        grid-template-columns: 1fr;
+      }
+      .socio-grid--reversed .socio-photo,
+      .socio-grid--reversed .socio-info { order: unset; }
+      .socio-photo { max-width: 340px; }
+      .section-header { gap: 4px; }
+      .display-quote { padding: 40px 32px; }
+      .display-quote p { font-size: clamp(22px, 5vw, 32px); }
+      .quote-mark { font-size: clamp(80px, 18vw, 120px); }
+    }
+
+    @media (max-width: 640px) {
+      .header-nav { display: none; }
+      .header-nav.mobile-open {
+        display: flex;
+        flex-direction: column;
+        position: fixed;
+        inset: 0;
+        background: var(--sage-deep);
+        z-index: 200;
+        justify-content: center;
+        align-items: center;
+        gap: 32px;
+      }
+      .header-nav.mobile-open a { font-size: 14px; color: var(--bone); }
+      .nav-toggle { display: flex; }
+
+      .hero-ctas { flex-direction: column; gap: 12px; }
+      .footer-bottom { flex-direction: column; align-items: flex-start; }
+      .contacto-grid { grid-template-columns: 1fr; }
+      .contacto-cta-wrap { padding: 40px 32px; }
+
+      .numeros-grid { flex-direction: column; }
+      .numero-item {
+        flex: none;
+        width: 100%;
+        padding: 20px 0;
+        border-right: none;
+        border-bottom: 1px solid var(--line-cool);
+        text-align: left;
+      }
+      .numero-item:first-child { padding-top: 0; }
+      .numero-item:last-child { border-bottom: none; }
+      .numero-item:nth-child(3),
+      .numero-item:nth-child(4) { border-top: none; padding-top: 20px; }
+    }
+
+    /* ══════════════════════════════════════════════════════════
+       SCROLL REVEAL — V4.2 (progressive enhancement)
+    ══════════════════════════════════════════════════════════ */
+    .reveal { opacity: 1; transform: translateY(0); }
+
+    .js-reveal-ready .reveal {
+      opacity: 0;
+      transform: translateY(12px);
+      transition: opacity var(--t-slow) var(--ease), transform var(--t-slow) var(--ease);
+    }
+    .js-reveal-ready .reveal.visible,
+    .js-reveal-ready .reveal.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .reveal-d1 { transition-delay: 0.10s; }
+    .reveal-d2 { transition-delay: 0.20s; }
+    .reveal-d3 { transition-delay: 0.30s; }
+    .reveal-d4 { transition-delay: 0.40s; }
+
+    /* ══════════════════════════════════════════════════════════
+       V4.2 — SCROLL PROGRESS
+    ══════════════════════════════════════════════════════════ */
+    .scroll-progress {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%;
+      height: 3px;
+      background: transparent;
+      z-index: 1000;
+      pointer-events: none;
+    }
+    .scroll-progress::after {
+      content: "";
+      display: block;
+      height: 100%;
+      width: var(--scroll-pct, 0%);
+      background: rgba(201, 168, 117, 0.7);
+      transition: width 80ms linear;
+    }
+
+    /* ══════════════════════════════════════════════════════════
+       V4.2 — NAV HOVER UNDERLINE
+    ══════════════════════════════════════════════════════════ */
+    .header-nav a {
+      position: relative;
+    }
+    .header-nav a::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      bottom: -4px;
+      width: 0;
+      height: 1px;
+      background: currentColor;
+      transition: width var(--t-base) var(--ease), left var(--t-base) var(--ease);
+    }
+    .header-nav a:hover::after {
+      width: 100%;
+      left: 0;
+    }
+
+    /* ══════════════════════════════════════════════════════════
+       V4.2 — BTN OUTLINE — fill desde abajo
+    ══════════════════════════════════════════════════════════ */
+    .btn-outline {
+      position: relative;
+      overflow: hidden;
+      z-index: 1;
+      transition: color var(--t-base) var(--ease),
+                  border-color var(--t-base) var(--ease);
+    }
+    .btn-outline::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: var(--bone);
+      transform: translateY(100%);
+      transition: transform 0.62s cubic-bezier(0.22, 1, 0.36, 1);
+      z-index: -1;
+    }
+    .btn-outline:hover { color: var(--sage-deep); border-color: var(--bone); }
+    .btn-outline:hover::before { transform: translateY(0); }
+
+    .btn-outline-large {
+      position: relative;
+      overflow: hidden;
+      z-index: 1;
+      transition: color var(--t-base) var(--ease),
+                  border-color var(--t-base) var(--ease);
+    }
+    .btn-outline-large::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: var(--bone);
+      transform: translateY(100%);
+      transition: transform 0.62s cubic-bezier(0.22, 1, 0.36, 1);
+      z-index: -1;
+    }
+    .btn-outline-large:hover { color: var(--sage-deep); border-color: var(--bone); }
+    .btn-outline-large:hover::before { transform: translateY(0); }
+
+    /* Botón brass — sólido en reposo, se vacía al hover dejando solo el contorno */
+    .btn-brass {
+      font-family: var(--font-body);
+      font-weight: 500;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      background: var(--brass);
+      color: var(--sage-deep);
+      border: 1px solid var(--brass);
+      padding: 16px 40px;
+      display: inline-block;
+      position: relative;
+      overflow: hidden;
+      z-index: 1;
+      transition: color 0.45s ease, background 0.45s ease;
+      white-space: nowrap;
+    }
+    .btn-brass:hover {
+      background: transparent;
+      color: var(--brass);
+    }
+
+
+    /* ══════════════════════════════════════════════════════════
+       V4.2 — CARDS HOVER (Trayectoria + Servicios)
+    ══════════════════════════════════════════════════════════ */
+    .milestone-card {
+      transition:
+        background var(--t-base) var(--ease),
+        border-color var(--t-base) var(--ease),
+        transform var(--t-base) var(--ease);
+    }
+    .milestone-card:hover {
+      background: #43503A;
+      border-color: rgba(201,168,117,0.65);
+      transform: translateY(-2px);
+    }
+    .milestone-card .milestone-year {
+      transition: transform var(--t-base) var(--ease), color var(--t-base) var(--ease);
+    }
+    .milestone-card:hover .milestone-year {
+      transform: scale(1.04);
+      color: var(--brass);
+      transform-origin: left center;
+    }
+
+    .servicio-card {
+      transition:
+        background var(--t-base) var(--ease),
+        border-color var(--t-base) var(--ease),
+        transform var(--t-base) var(--ease);
+    }
+    .servicio-card:hover {
+      background: var(--sage-hover);
+      border-color: rgba(201,168,117,0.65);
+      transform: translateY(-2px);
+    }
+    .servicio-card .servicio-numero {
+      transition: transform var(--t-base) var(--ease), color var(--t-base) var(--ease);
+      transform-origin: left center;
+      display: inline-block;
+    }
+    .servicio-card:hover .servicio-numero {
+      transform: scale(1.04);
+      color: var(--bone);
+    }
+
+    /* ══════════════════════════════════════════════════════════
+       V4.2 — LISTAS HOVER
+    ══════════════════════════════════════════════════════════ */
+    .achievement-list li {
+      transition:
+        padding-left var(--t-base) var(--ease),
+        color var(--t-base) var(--ease);
+    }
+    .achievement-list li:hover { color: rgba(95,81,67,0.95); }
+    .achievement-list li::before {
+      transition: left var(--t-base) var(--ease);
+    }
+
+    /* ══════════════════════════════════════════════════════════
+       V4.2 — FOTO HOVER (Paula)
+    ══════════════════════════════════════════════════════════ */
+    .photo-wrap img {
+      transition: filter var(--t-slow) var(--ease), transform 1.2s var(--ease);
+    }
+    .photo-wrap:hover img {
+      filter: grayscale(10%) contrast(1.02) brightness(0.98);
+      transform: scale(1.025);
+    }
+
+    /* ══════════════════════════════════════════════════════════
+       V4.2 — PLACEHOLDER MARTÍN institucional
+    ══════════════════════════════════════════════════════════ */
+    .placeholder-martin {
+      aspect-ratio: 3 / 4;
+      background: var(--sage-deep);
+      border: 1px solid var(--line-warm);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+    }
+    .placeholder-martin::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image: repeating-linear-gradient(
+        45deg,
+        transparent,
+        transparent 20px,
+        rgba(201,168,117,0.04) 20px,
+        rgba(201,168,117,0.04) 21px
+      );
+    }
+    .placeholder-martin-inner {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+      position: relative;
+      z-index: 1;
+    }
+    .placeholder-martin-monogram {
+      font-family: var(--font-display);
+      font-size: clamp(56px, 6vw, 88px);
+      color: var(--brass);
+      letter-spacing: 0.04em;
+      line-height: 1;
+    }
+    .placeholder-martin-label {
+      font-family: var(--font-body);
+      font-weight: 300;
+      font-size: 10px;
+      letter-spacing: 0.34em;
+      text-transform: uppercase;
+      color: rgba(234,230,227,0.45);
+      padding-top: 12px;
+      border-top: 1px solid var(--line-bone);
+    }
+
+    /* ══════════════════════════════════════════════════════════
+       V4.2 — MARQUEE
+    ══════════════════════════════════════════════════════════ */
+    .marquee {
+      background: var(--sage);
+      border-top: 1px solid rgba(201, 168, 117, 0.25);
+      border-bottom: 1px solid rgba(201, 168, 117, 0.25);
+      padding: 32px 0;
+      overflow: hidden;
+      white-space: nowrap;
+      position: relative;
+    }
+    .marquee-track {
+      display: inline-flex;
+      gap: 52px;
+      animation: marquee-scroll 60s linear infinite;
+      font-family: var(--font-body);
+      font-weight: 300;
+      font-size: 16px;
+      letter-spacing: 0.34em;
+      text-transform: uppercase;
+      color: rgba(234,230,227,0.65);
+    }
+    .marquee-track .dot { color: var(--brass); }
+    @keyframes marquee-scroll {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+
+    /* ══════════════════════════════════════════════════════════
+       V4.2 — CURSOR CUSTOM (solo desktop)
+    ══════════════════════════════════════════════════════════ */
+    @media (pointer: fine) {
+      body { cursor: none; }
+      a, button { cursor: none; }
+
+      .custom-cursor {
+        position: fixed;
+        top: 0; left: 0;
+        width: 20px;
+        height: 20px;
+        border: 1px solid var(--brass);
+        border-radius: 50%;
+        pointer-events: none;
+        z-index: 9999;
+        /* JS updates transform each rAF frame */
+        transition:
+          width var(--t-fast) var(--ease),
+          height var(--t-fast) var(--ease),
+          background var(--t-fast) var(--ease),
+          opacity var(--t-fast) var(--ease);
+        opacity: 0;
+        visibility: hidden;
+      }
+      .custom-cursor.active {
+        opacity: 0.8;
+        visibility: visible;
+      }
+      .custom-cursor.is-hover {
+        width: 40px;
+        height: 40px;
+        background: rgba(201, 168, 117, 0.12);
+        border-color: var(--brass);
+      }
+    }
+
+    /* ══════════════════════════════════════════════════════════
+       V4.2 — HAIRLINE LINKS ARROW
+    ══════════════════════════════════════════════════════════ */
+    .hairline-link {
+      transition: color var(--t-base) var(--ease), border-color var(--t-base) var(--ease);
+    }
+
+    /* ══════════════════════════════════════════════════════════
+       V4.2 — PREFERS REDUCED MOTION
+    ══════════════════════════════════════════════════════════ */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+      }
+      .reveal { opacity: 1 !important; transform: none !important; }
+      .marquee-track { animation: none; }
+      .btn-outline::before, .btn-outline-large::before { transition: none; }
+    }
+
+  </style>
+</head>
+<body>
+
+  <div class="scroll-progress" aria-hidden="true"></div>
+
+  <!-- ═══════════════════════════════════════════════════════════
+       HEADER
+  ═══════════════════════════════════════════════════════════ -->
+  <header id="site-header">
+    <a href="#" class="header-wordmark">Shiff <span class="amp">&amp;</span> Castro</a>
+
+    <nav class="header-nav" id="main-nav">
+      <a href="#hero">Inicio</a>
+      <a href="#intro">Quiénes Somos</a>
+      <a href="#historia">Nuestra Historia</a>
+      <a href="#servicios">Servicios</a>
+      <a href="#contacto">Contacto</a>
+      <!-- Calendly: https://calendly.com/paulashiff-estudio -->
+      <a href="https://calendly.com/paulashiff-estudio" target="_blank" rel="noopener" class="nav-cta">Agendar</a>
+    </nav>
+
+    <button class="nav-toggle" id="nav-toggle" aria-label="Menú">
+      <span></span><span></span><span></span>
+    </button>
+  </header>
+
+
+  <!-- ═══════════════════════════════════════════════════════════
+       HERO
+  ═══════════════════════════════════════════════════════════ -->
+  <section id="hero">
+
+    <!-- Grano sobre hero -->
+    <svg class="grain-overlay" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+      <filter id="gn-hero">
+        <feTurbulence type="fractalNoise" baseFrequency="0.90" numOctaves="2" stitchTiles="stitch"/>
+        <feColorMatrix values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.5 0"/>
+      </filter>
+      <rect width="100%" height="100%" filter="url(#gn-hero)"/>
+    </svg>
+
+    <div class="hero-bg">
+      <video
+        class="hero-video"
+        autoplay
+        muted
+        loop
+        playsinline
+        preload="metadata">
+        <source src="brand_assets/Fondos/1-VideoBiblioteca10s.mp4" type="video/mp4">
+      </video>
+    </div>
+
+    <!-- Tinte sage-deep sobre el video -->
+    <div class="hero-tint" aria-hidden="true"></div>
+
+    <div class="hero-content">
+      <span class="hero-wordmark">
+        Shiff<span class="amp">&amp;</span>Castro
+      </span>
+
+      <p class="hero-inscription">Estudio Jurídico Especializado en Derecho Reproductivo y Salud en general.</p>
+
+      <div class="hero-ctas">
+        <!-- TODO: Martín probablemente necesita Calendly propio. Confirmar con cliente. -->
+        <a href="https://calendly.com/paulashiff-estudio" target="_blank" rel="noopener" class="btn-outline">Agendar con Paula</a>
+        <!-- TODO: Martín probablemente necesita Calendly propio. Confirmar con cliente. -->
+        <a href="https://calendly.com/paulashiff-estudio" target="_blank" rel="noopener" class="btn-outline">Agendar con Martín</a>
+      </div>
+    </div>
+
+    <div class="hero-established">
+      Established MMXIII &nbsp;·&nbsp; +11 Años &nbsp;·&nbsp; Buenos Aires — Argentina
+    </div>
+
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════════════════
+       INTRO — I
+  ═══════════════════════════════════════════════════════════ -->
+  <section id="intro" class="bg-bone">
+    <aside class="sticky-label" aria-hidden="true">I — Quiénes Somos</aside>
+
+    <div class="intro-grid container">
+
+      <div class="reveal">
+        <span class="eyebrow">01 — Quiénes Somos</span>
+        <h2 class="display intro-title">
+          Tu Salud<br>Tiene Derechos
+        </h2>
+        <p class="intro-subtitle">Nosotros los conocemos.</p>
+      </div>
+
+      <div class="reveal reveal-d1">
+        <p class="intro-body">
+          Somos un estudio especializado en Derecho Reproductivo y de la Salud con más de 11 años de trayectoria. Porque hay momentos donde necesitás más que un médico — necesitás a alguien que sepa defender lo que te corresponde por ley.
+        </p>
+        <div class="intro-links">
+          <!-- TODO: Martín probablemente necesita Calendly propio. Confirmar con cliente. -->
+          <a href="https://calendly.com/paulashiff-estudio" target="_blank" rel="noopener" class="hairline-link">→ Agendar Consulta</a>
+          <a href="#servicios" class="hairline-link">→ Conocé Nuestros Servicios</a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════════════════
+       EL ESTUDIO — II
+  ═══════════════════════════════════════════════════════════ -->
+  <section id="el-estudio" class="bg-sage">
+
+    <!-- Grano -->
+    <svg class="grain-overlay" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+      <filter id="gn-estudio">
+        <feTurbulence type="fractalNoise" baseFrequency="0.90" numOctaves="2" stitchTiles="stitch"/>
+        <feColorMatrix values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.5 0"/>
+      </filter>
+      <rect width="100%" height="100%" filter="url(#gn-estudio)"/>
+    </svg>
+
+    <aside class="sticky-label" aria-hidden="true">II — El Estudio</aside>
+
+    <div style="padding: var(--space-section) var(--gutter); position: relative; z-index: 2;">
+
+      <div class="estudio-grid container">
+
+        <!-- COL IZQUIERDA: número + título + nota -->
+        <div class="estudio-left reveal">
+          <span class="eyebrow eyebrow--bone">02 — El Estudio</span>
+          <h2 class="display estudio-title">
+            El Estudio
+          </h2>
+          <div class="estudio-title-rule"></div>
+          <span class="estudio-left-note">Buenos Aires · Desde 2013<br>Derecho Reproductivo y Salud</span>
+        </div>
+
+        <!-- COL DERECHA: cita + texto -->
+        <div class="estudio-right reveal reveal-d1">
+          <p class="estudio-quote">Hay estudios que hacen de todo.<br>Nosotros elegimos hacer una sola cosa muy bien.</p>
+
+          <div class="estudio-body">
+            <p>SHIFF &amp; CASTRO lleva 11 años dedicados exclusivamente al derecho reproductivo y de salud en general. Eso nos dio algo que no se improvisa: profundidad real en el área, relaciones con los especialistas y magistrados que importan, y una historia de casos resueltos que es nuestra mejor carta de presentación.</p>
+
+            <p class="estudio-punch">Cuando llegás a nosotros, no estás explicando el tema desde cero. Ya lo conocemos.</p>
+
+            <p>Pero más allá del conocimiento técnico, entendemos que detrás de cada caso hay una persona atravesando un momento difícil. Por eso acompañamos no solo con estrategia legal, sino con la cercanía de quien realmente entiende lo que está en juego.</p>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════════════════
+       QUIÉNES SOMOS — PAULA (III) & MARTÍN (IV)
+  ═══════════════════════════════════════════════════════════ -->
+  <div id="quienes-somos">
+
+    <!-- PAULA -->
+    <div class="socio-section socio-section--paula bg-paper">
+      <aside class="sticky-label" aria-hidden="true">III — Paula Shiff</aside>
+
+      <div class="socio-grid container">
+
+        <div class="socio-photo photo-wrap reveal">
+          <!-- Retrato Paula, 3:4 vertical, look profesional, biblioteca/oficina, B&N -->
+          <img
+            src="brand_assets/paulaPensando.jpeg"
+            alt="Paula Shiff — Abogada especialista en derecho reproductivo"
+          />
+        </div>
+
+        <div class="socio-info reveal reveal-d1">
+          <span class="eyebrow">03 — Socia Fundadora</span>
+          <h2 class="display socio-name">Paula Shiff</h2>
+          <span class="socio-title-line">Abogada · UBA · Especialista en Derecho Reproductivo</span>
+
+          <p class="socio-bio">
+            Paula Shiff es abogada UBA especializada en derecho reproductivo desde 2013. De pasar por un camino difícil. De buscar ser madre. Descubrir que había derechos que no conocía. De pelear por ellos. De ganar. Y de decidir que otras mujeres no tuvieran que hacer ese camino sin ayuda profesional. Creadora de El Club de las Soñadoras<sup>®</sup>
+          </p>
+
+          <span class="logros-title">Lo que Paula ha logrado</span>
+          <ul class="achievement-list">
+            <li>Asesorado a miles de mujeres en derechos reproductivos</li>
+            <li>Recuperado millones en coberturas médicas negadas</li>
+            <li>Defendido derechos laborales de pacientes</li>
+            <li>Analizado fallos importantes en jurisprudencia</li>
+            <li>Colaborado con especialistas médicos y psicológicos</li>
+            <li>Generar una comunidad en redes sociales de más de 40 mil mujeres</li>
+          </ul>
+
+          <!-- TODO: Martín probablemente necesita Calendly propio. Confirmar con cliente. -->
+          <a href="https://calendly.com/paulashiff-estudio" target="_blank" rel="noopener" class="hairline-link">
+            Agendar Asesoría en Fertilidad →
+          </a>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- MARTÍN -->
+    <div class="socio-section socio-section--martin bg-bone">
+      <aside class="sticky-label" aria-hidden="true">IV — Martín Castro</aside>
+
+      <div class="socio-grid socio-grid--reversed container">
+
+        <div class="socio-info reveal">
+          <span class="eyebrow">04 — Socio Fundador</span>
+          <h2 class="display socio-name">Martín Castro</h2>
+          <span class="socio-title-line">Abogado · UBA · Especialista en Amparos de Salud</span>
+
+          <p class="socio-bio">
+            Martín Castro es abogado UBA especializado en Amparos de Salud. Interviene cuando el sistema niega cobertura, demora tratamientos o vulnera derechos de pacientes. Con más de 11 años de experiencia, conoce el sistema por dentro y sabe exactamente dónde apretar.
+          </p>
+
+          <span class="logros-title">Lo que Martín ha logrado</span>
+          <ul class="achievement-list">
+            <li>Presentado y ganado cientos de amparos de salud en más de 11 años de trayectoria</li>
+            <li>Recuperado coberturas negadas en casos de medicamentos de alto costo, oncología y enfermedades crónicas</li>
+            <li>Defendido los derechos de pacientes frente a obras sociales y prepagas en todo el país</li>
+            <li>Acompañado a personas y familias en los momentos más críticos de su vínculo con el sistema de salud</li>
+            <li>Intervenido en casos de discapacidad, salud mental y tratamientos de larga duración</li>
+            <li>Desarrollado una práctica sólida en amparos urgentes, donde los tiempos importan tanto como la estrategia</li>
+          </ul>
+
+          <!-- TODO: Martín probablemente necesita Calendly propio. Confirmar con cliente. -->
+          <a href="https://calendly.com/paulashiff-estudio" target="_blank" rel="noopener" class="hairline-link">
+            AGENDÁ TU CONSULTA para reclamos de reafiliación y salud en general con Martín →
+          </a>
+        </div>
+
+        <div class="socio-photo photo-wrap reveal reveal-d1">
+          <!-- PLACEHOLDER: Foto retrato Martín 3:4 B&N. AÚN NO DISPONIBLE. Pendiente. -->
+          <div class="placeholder-martin">
+            <div class="placeholder-martin-inner">
+              <span class="placeholder-martin-monogram">MC</span>
+              <span class="placeholder-martin-label">Retrato en Proceso</span>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /socio-grid -->
+    </div><!-- /socio-section--martin -->
+
+  </div><!-- /quienes-somos -->
+
+
+  <!-- ═══════════════════════════════════════════════════════════
+       TRAYECTORIA — V
+  ═══════════════════════════════════════════════════════════ -->
+  <section id="trayectoria" class="bg-sage-deep">
+
+    <!-- Grano -->
+    <svg class="grain-overlay" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+      <filter id="gn-tray">
+        <feTurbulence type="fractalNoise" baseFrequency="0.90" numOctaves="2" stitchTiles="stitch"/>
+        <feColorMatrix values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.5 0"/>
+      </filter>
+      <rect width="100%" height="100%" filter="url(#gn-tray)"/>
+    </svg>
+
+    <aside class="sticky-label" aria-hidden="true">V — Trayectoria</aside>
+
+    <div style="position: relative; z-index: 2; padding: var(--space-section) var(--gutter);">
+
+      <div class="container reveal" style="max-width: var(--container); margin-bottom: clamp(20px, 3vw, 32px);">
+        <span class="eyebrow eyebrow--bone">05 — Trayectoria</span>
+        <h2 class="display" style="font-size: clamp(22px, 2.8vw, 36px); color: var(--bone); margin-top: 8px; text-transform: uppercase; letter-spacing: 0.05em;">Una Década en el Campo</h2>
+        <p style="font-family: var(--font-body); font-weight: 300; font-size: 15px; color: rgba(234,230,227,0.78); max-width: 620px; margin-top: 18px; line-height: 1.75; letter-spacing: 0.03em;">Lo que empezó como una inquietud se convirtió en el estudio de referencia en Derecho Reproductivo y Salud del país.</p>
+      </div>
+
+      <hr class="trayectoria-rule" />
+
+      <div class="timeline-grid container">
+
+        <article class="milestone-card reveal">
+          <span class="milestone-year">2013</span>
+          <div class="milestone-rule"></div>
+          <p class="milestone-text">El inicio: Nace el primer espacio de consulta y comunidad sobre ley de reproducción asistida en Argentina. Una semilla pequeña con una necesidad enorme detrás.</p>
+        </article>
+
+        <article class="milestone-card reveal reveal-d1">
+          <span class="milestone-year">2015–2018</span>
+          <div class="milestone-rule"></div>
+          <p class="milestone-text">Consolidación: La comunidad crece. Miles de mujeres y parejas encuentran en el estudio un lugar donde entender sus derechos y tomar decisiones informadas.</p>
+        </article>
+
+        <article class="milestone-card reveal reveal-d2">
+          <span class="milestone-year">2019–2022</span>
+          <div class="milestone-rule"></div>
+          <p class="milestone-text">Expansión: El estudio se formaliza y amplía su alcance. Se suman nuevas áreas de práctica en salud general y amparos. La presencia digital se consolida con más de 40.000 personas en la comunidad.</p>
+        </article>
+
+        <article class="milestone-card reveal reveal-d3">
+          <span class="milestone-year">2023–2024</span>
+          <div class="milestone-rule"></div>
+          <p class="milestone-text">Referencia: El estudio es reconocido como referente en Derecho Reproductivo y Salud. Casos complejos, jurisprudencia relevante y un equipo que conoce el sistema por dentro.</p>
+        </article>
+
+      </div><!-- /timeline-grid -->
+
+    </div><!-- /z-wrapper -->
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════════════════
+       NUESTRA HISTORIA — VI
+  ═══════════════════════════════════════════════════════════ -->
+  <section id="historia" class="bg-paper">
+    <aside class="sticky-label" aria-hidden="true">VI — Nuestra Historia</aside>
+
+    <div class="historia-grid container">
+
+      <!-- LEFT: anchored year + eyebrow -->
+      <div class="historia-left reveal">
+        <span class="eyebrow">06 — Nuestra Historia</span>
+        <span class="display historia-year">2013</span>
+        <span class="historia-year-label">Fundación del Estudio<br>Buenos Aires</span>
+      </div>
+
+      <!-- RIGHT: prose + lists -->
+      <div class="historia-body reveal reveal-d1">
+        <p class="dropcap">En 2013, la Ley de Fertilidad 26.862 recién había sido sancionada. Y nosotros estábamos atravesando nuestra propia búsqueda de embarazo.</p>
+        <p>Ciclos de esperanza y duelo. Desinformación. Y un descubrimiento que nos cambió todo: había derechos que no estaban siendo respetados, y que la mayoría desconocía. Derechos que nuestras obras sociales vulneraban. Derechos que la ley nos otorga pero nadie explicaba. Derechos que podíamos reclamar, pero no sabíamos cómo.</p>
+        <p>Así que decidimos aprender. Estudiamos. Investigamos. Litigamos. Y ganamos.</p>
+        <p>Pero mientras lo hacíamos, entendimos que no éramos los únicos. Miles de personas estaban en la misma situación — buscando, sin saber si tenían derecho a lo que necesitaban. Entonces construimos algo más que un estudio: construimos un espacio. Porque sabíamos lo que era no saber. Y sobre todo, sabíamos lo invaluable que es sentirse acompañada/o.</p>
+        <p>Hoy peleamos por vos con todo eso detrás.</p>
+
+        <span class="historia-section-label">Lo que logramos</span>
+        <ul class="achievement-list">
+          <li>Asesoramos a miles de mujeres y hombres sobre sus derechos reproductivos y en salud</li>
+          <li>Recuperamos coberturas médicas negadas en cientos de casos</li>
+          <li>Ganamos fallos que hoy marcan jurisprudencia</li>
+          <li>Colaboramos con especialistas médicos y psicológicos en casos complejos</li>
+        </ul>
+
+        <span class="historia-section-label">Nuestra fortaleza</span>
+        <ul class="achievement-list" style="margin-bottom: 40px;">
+          <li>Especialización jurídica rigurosa con más de 11 años de experiencia</li>
+          <li>Comprensión real del camino que estás transitando</li>
+          <li>Trato personalizado en cada caso</li>
+          <li>Una comunidad de más de 40.000 personas que acompaña: El Club de las Soñadoras</li>
+        </ul>
+
+        <!-- TODO: Martín probablemente necesita Calendly propio. Confirmar con cliente. -->
+        <a href="https://calendly.com/paulashiff-estudio" target="_blank" rel="noopener" class="hairline-link">
+          Agendá tu Consulta →
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════
+       MARQUEE — entre Historia y Servicios
+  ═══════════════════════════════════════════════════════════ -->
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee-track">
+      <!-- Set 1 -->
+      <span>Derecho Reproductivo</span><span class="dot">·</span>
+      <span>Salud</span><span class="dot">·</span>
+      <span>Amparos</span><span class="dot">·</span>
+      <span>Fertilidad</span><span class="dot">·</span>
+      <span>Coberturas</span><span class="dot">·</span>
+      <span>Derecho Reproductivo</span><span class="dot">·</span>
+      <span>Salud</span><span class="dot">·</span>
+      <span>Amparos</span><span class="dot">·</span>
+      <span>Fertilidad</span><span class="dot">·</span>
+      <span>Coberturas</span><span class="dot">·</span>
+      <!-- Set 2 — duplicado idéntico para loop sin saltos -->
+      <span>Derecho Reproductivo</span><span class="dot">·</span>
+      <span>Salud</span><span class="dot">·</span>
+      <span>Amparos</span><span class="dot">·</span>
+      <span>Fertilidad</span><span class="dot">·</span>
+      <span>Coberturas</span><span class="dot">·</span>
+      <span>Derecho Reproductivo</span><span class="dot">·</span>
+      <span>Salud</span><span class="dot">·</span>
+      <span>Amparos</span><span class="dot">·</span>
+      <span>Fertilidad</span><span class="dot">·</span>
+      <span>Coberturas</span><span class="dot">·</span>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════
+       SERVICIOS — VII
+  ═══════════════════════════════════════════════════════════ -->
+  <section id="servicios" class="bg-sage">
+
+    <!-- Grano -->
+    <svg class="grain-overlay" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+      <filter id="gn-serv">
+        <feTurbulence type="fractalNoise" baseFrequency="0.90" numOctaves="2" stitchTiles="stitch"/>
+        <feColorMatrix values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.5 0"/>
+      </filter>
+      <rect width="100%" height="100%" filter="url(#gn-serv)"/>
+    </svg>
+
+    <aside class="sticky-label" aria-hidden="true">VII — Servicios</aside>
+
+    <div style="position: relative; z-index: 2; padding: clamp(48px, 6vw, 80px) var(--gutter);">
+
+      <!-- HEADER: eyebrow arriba, título grande abajo -->
+      <div class="servicios-header reveal">
+        <div class="servicios-header-right">
+          <span class="eyebrow eyebrow--bone">07 — Servicios</span>
+          <h2 class="servicios-title">Servicios</h2>
+          <p class="servicios-bajada">Consulta Inicial: Conocer Tus Derechos</p>
+        </div>
+      </div>
+
+      <!-- GRID DE SERVICIOS -->
+      <div class="servicios-grid container">
+
+        <article class="servicio-card reveal">
+          <span class="servicio-idx">01</span>
+          <h3 class="servicio-nombre">Derecho Reproductivo<br>y Fertilidad</h3>
+          <span class="servicio-rule"></span>
+          <p class="servicio-desc">Cobertura de tratamientos, FIV, ovodonación, gestación subrogada, derechos ante obras sociales y prepagas.</p>
+        </article>
+
+        <article class="servicio-card reveal reveal-d1">
+          <span class="servicio-idx">02</span>
+          <h3 class="servicio-nombre">Amparos<br>de Salud</h3>
+          <span class="servicio-rule"></span>
+          <p class="servicio-desc">Amparos de salud, medicamentos de alto costo, tratamientos negados, cobertura de discapacidad, salud mental, oncología.</p>
+        </article>
+
+        <article class="servicio-card reveal reveal-d2">
+          <span class="servicio-idx">03</span>
+          <h3 class="servicio-nombre">Derecho de la Salud<br>en General</h3>
+          <span class="servicio-rule"></span>
+          <p class="servicio-desc">Todo lo que pasa cuando el sistema falla y necesitás respaldo legal rápido y efectivo.</p>
+        </article>
+
+        <article class="servicio-card reveal reveal-d3">
+          <span class="servicio-idx">04</span>
+          <h3 class="servicio-nombre">Reclamo por<br>Cobertura Negada</h3>
+          <span class="servicio-rule"></span>
+          <p class="servicio-desc">Tu prepaga te negó cobertura. Vamos a reclamar.</p>
+        </article>
+
+      </div>
+
+      <!-- ¿QUÉ INCLUYE? -->
+      <div class="servicios-incluye container reveal">
+        <span class="incluye-title">¿Qué incluye?</span>
+        <ul class="incluye-list">
+          <li>Análisis completo de tu situación</li>
+          <li>Explicación clara de tus derechos</li>
+          <li>Análisis de documentos (si los traés)</li>
+          <li>Orientación sobre próximos pasos</li>
+          <li>Presupuesto de honorarios si necesitás más ayuda</li>
+        </ul>
+      </div>
+
+      <!-- CTA -->
+      <div class="servicios-cta container reveal">
+        <a href="https://calendly.com/paulashiff-estudio" target="_blank" rel="noopener" class="btn-servicios-cta">
+          <span>Agendá tu Reunión</span>
+          <span class="arrow">→</span>
+        </a>
+      </div><!-- /servicios-cta -->
+
+    </div><!-- /z-wrapper -->
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════════════════
+       NÚMEROS — VIII
+  ═══════════════════════════════════════════════════════════ -->
+  <section id="numeros" class="bg-paper">
+    <aside class="sticky-label" aria-hidden="true">VIII — Cifras</aside>
+
+    <div style="padding: clamp(48px, 6vw, 80px) var(--gutter);">
+
+      <div class="numeros-header container reveal">
+        <span class="eyebrow">08 — Trayectoria en Cifras</span>
+      </div>
+
+      <div class="numeros-grid container">
+        <div class="numero-item reveal">
+          <span class="big-number">+11</span>
+          <div class="number-rule" aria-hidden="true"></div>
+          <span class="number-label">Años de<br>Especialización</span>
+        </div>
+        <div class="numero-item reveal reveal-d1">
+          <span class="big-number">+61.000</span>
+          <div class="number-rule" aria-hidden="true"></div>
+          <span class="number-label">Miembros en<br>la Comunidad</span>
+        </div>
+        <div class="numero-item reveal reveal-d2">
+          <span class="big-number">Miles</span>
+          <div class="number-rule" aria-hidden="true"></div>
+          <span class="number-label">Casos<br>Asesorados</span>
+        </div>
+        <div class="numero-item reveal reveal-d3">
+          <span class="big-number">Cientos</span>
+          <div class="number-rule" aria-hidden="true"></div>
+          <span class="number-label">Coberturas<br>Recuperadas</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════════════════
+       FAQ — IX
+  ═══════════════════════════════════════════════════════════ -->
+  <section id="faq" class="bg-sage">
+    <aside class="sticky-label" aria-hidden="true">IX — FAQ</aside>
+
+    <div style="padding: var(--space-section) var(--gutter);">
+      <div class="faq-inner container">
+
+        <div class="reveal" style="margin-bottom: clamp(28px, 3.5vw, 44px);">
+          <span class="eyebrow eyebrow--bone">09 — Consultas Habituales</span>
+          <h2 class="display faq-section-title">Preguntas<br>Frecuentes</h2>
+        </div>
+
+        <div class="faq-list" role="list">
+
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+              <span class="faq-q-text">¿Cuánto cuesta una consulta inicial?</span>
+              <span class="faq-symbol" aria-hidden="true">+</span>
+            </button>
+            <div class="faq-answer" role="region">
+              <div class="faq-answer-inner">
+                $28.000. Se dedica ese dinero al presupuesto si continuás con un servicio más completo.
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+              <span class="faq-q-text">¿Cuánto tiempo toma resolver un caso?</span>
+              <span class="faq-symbol" aria-hidden="true">+</span>
+            </button>
+            <div class="faq-answer" role="region">
+              <div class="faq-answer-inner">
+                Una carta documento: deben responder en 48 hs. Recurso de Amparo: depende de varios factores que se evalúan en la asesoría, pero debemos tener en cuenta que es una vía legal rápida.
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+              <span class="faq-q-text">¿La consulta es confidencial?</span>
+              <span class="faq-symbol" aria-hidden="true">+</span>
+            </button>
+            <div class="faq-answer" role="region">
+              <div class="faq-answer-inner">
+                100%. Rige secreto profesional. Tu información no se comparte.
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+              <span class="faq-q-text">¿Qué documentos necesito?</span>
+              <span class="faq-symbol" aria-hidden="true">+</span>
+            </button>
+            <div class="faq-answer" role="region">
+              <div class="faq-answer-inner">
+                Para un eventual reclamo, se necesitará: DNI, carnet, indicación médica, resumen de historia clínica.
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+              <span class="faq-q-text">¿Cuál es la conexión con El Club de las Soñadoras?</span>
+              <span class="faq-symbol" aria-hidden="true">+</span>
+            </button>
+            <div class="faq-answer" role="region">
+              <div class="faq-answer-inner">
+                Paula es la creadora de El Club de las Soñadoras, una comunidad de apoyo emocional (gratis en Instagram) donde encontrarás información de valor y experiencias que sumarán mucha esperanza a tu recorrido.
+              </div>
+            </div>
+          </div>
+
+        </div><!-- /faq-list -->
+
+      </div><!-- /faq-inner -->
+
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════════════════
+       CONTACTO — X
+  ═══════════════════════════════════════════════════════════ -->
+  <section id="contacto" class="bg-sage-deep">
+
+    <!-- Grano -->
+    <svg class="grain-overlay" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+      <filter id="gn-cont">
+        <feTurbulence type="fractalNoise" baseFrequency="0.90" numOctaves="2" stitchTiles="stitch"/>
+        <feColorMatrix values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.5 0"/>
+      </filter>
+      <rect width="100%" height="100%" filter="url(#gn-cont)"/>
+    </svg>
+
+    <aside class="sticky-label" aria-hidden="true">X — Contacto</aside>
+
+    <div style="position: relative; z-index: 2; padding: var(--space-section) var(--gutter);">
+
+      <div class="contacto-grid container">
+
+        <div class="reveal">
+          <span class="eyebrow eyebrow--bone">08 — Contacto</span>
+          <h2 class="display contacto-title">Contacto</h2>
+
+          <div class="contacto-title-rule"></div>
+
+          <div>
+            <!-- PENDIENTE: confirmar si paula_aboagada@gmail.com es typo o correcto -->
+            <div class="contacto-row">
+              <span class="contacto-label">E.</span>
+              <span class="contacto-value">paula_aboagada@gmail.com</span>
+            </div>
+            <!-- PENDIENTE: número real de WhatsApp -->
+            <div class="contacto-row">
+              <span class="contacto-label">T.</span>
+              <span class="contacto-value">+54 9 [XX XXXX XXXX]</span>
+            </div>
+            <div class="contacto-row">
+              <span class="contacto-label">IG.</span>
+              <span class="contacto-value">@paulafertilidad</span>
+            </div>
+            <div class="contacto-row">
+              <span class="contacto-label">Dir.</span>
+              <span class="contacto-value">Buenos Aires, Argentina</span>
+            </div>
+            <div class="contacto-row">
+              <span class="contacto-label">Hr.</span>
+              <span class="contacto-value">Lunes a Viernes 9 — 18 (ART)</span>
+            </div>
+            <div class="contacto-row">
+              <span class="contacto-label">Urgencias</span>
+              <span class="contacto-value">WhatsApp</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="reveal reveal-d1">
+          <div class="contacto-cta-wrap">
+            <span class="contacto-cta-label">Siguiente paso</span>
+            <p class="contacto-cta-intro">Tu caso<br>merece una<br><em>respuesta real.</em></p>
+            <!-- TODO: Martín probablemente necesita Calendly propio. Confirmar con cliente. -->
+            <a
+              href="https://calendly.com/paulashiff-estudio"
+              target="_blank"
+              rel="noopener"
+              class="btn-brass"
+            >
+              Agendar Consulta
+            </a>
+          </div>
+        </div>
+
+      </div><!-- /contacto-grid -->
+
+    </div><!-- /z-wrapper -->
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════════════════
+       FOOTER
+  ═══════════════════════════════════════════════════════════ -->
+  <footer id="footer">
+
+    <!-- Grano -->
+    <svg class="grain-overlay" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+      <filter id="gn-foot">
+        <feTurbulence type="fractalNoise" baseFrequency="0.90" numOctaves="2" stitchTiles="stitch"/>
+        <feColorMatrix values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.5 0"/>
+      </filter>
+      <rect width="100%" height="100%" filter="url(#gn-foot)"/>
+    </svg>
+
+    <div style="position: relative; z-index: 2;">
+      <hr class="footer-top-rule" />
+
+      <div class="footer-grid container">
+
+        <div>
+          <span class="footer-wordmark">Shiff <span class="amp">&amp;</span> Castro</span>
+          <span class="footer-tagline">Estudio Jurídico — Buenos Aires, Argentina</span>
+        </div>
+
+        <nav class="footer-nav-col">
+          <a href="#hero">Inicio</a>
+          <a href="#intro">Quiénes Somos</a>
+          <a href="#historia">Nuestra Historia</a>
+          <a href="#servicios">Servicios</a>
+          <a href="#faq">Preguntas Frecuentes</a>
+          <a href="#contacto">Contacto</a>
+        </nav>
+
+        <div class="footer-legal">
+          <p>Estudio Jurídico Especializado</p>
+          <p>en Derecho Reproductivo y Salud</p>
+          <br />
+          <p>Argentina · Ejercicio profesional</p>
+          <p>regulado por el Colegio de Abogados</p>
+        </div>
+
+      </div>
+
+      <div class="footer-bottom container">
+        <span class="footer-copy">© 2024 Shiff &amp; Castro. Todos los derechos reservados.</span>
+        <span class="footer-specialty">Diseño jurídico especializado · Derecho Reproductivo y Salud</span>
+      </div>
+    </div>
+
+  </footer>
+
+
+  <!-- ═══════════════════════════════════════════════════════════
+       JAVASCRIPT
+  ═══════════════════════════════════════════════════════════ -->
+  <script>
+    // ── Header scroll ─────────────────────────────────────────
+    const header = document.getElementById('site-header');
+    window.addEventListener('scroll', () => {
+      header.classList.toggle('scrolled', window.scrollY > 56);
+    }, { passive: true });
+
+    // ── Mobile nav ────────────────────────────────────────────
+    const navToggle = document.getElementById('nav-toggle');
+    const mainNav   = document.getElementById('main-nav');
+    navToggle.addEventListener('click', () => mainNav.classList.toggle('mobile-open'));
+    mainNav.querySelectorAll('a').forEach(a =>
+      a.addEventListener('click', () => mainNav.classList.remove('mobile-open'))
+    );
+
+    // ── FAQ accordion ─────────────────────────────────────────
+    document.querySelectorAll('.faq-question').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const item   = btn.closest('.faq-item');
+        const isOpen = item.classList.contains('open');
+
+        document.querySelectorAll('.faq-item').forEach(i => {
+          i.classList.remove('open');
+          i.querySelector('.faq-question').setAttribute('aria-expanded', 'false');
+          i.querySelector('.faq-symbol').textContent = '+';
+        });
+
+        if (!isOpen) {
+          item.classList.add('open');
+          btn.setAttribute('aria-expanded', 'true');
+          btn.querySelector('.faq-symbol').textContent = '−';
+        }
+      });
+    });
+
+    // ── Scroll reveal — progressive enhancement ───────────────
+    document.body.classList.add('js-reveal-ready');
+
+    const revealObs = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          revealObs.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.07, rootMargin: '0px 0px -24px 0px' });
+
+    document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
+
+    // ── V4.2: Scroll progress bar ─────────────────────────────
+    (function () {
+      const root = document.documentElement;
+      function updateProgress() {
+        const scrollTop  = window.scrollY;
+        const docHeight  = document.body.scrollHeight - window.innerHeight;
+        const pct = docHeight > 0 ? Math.min(100, (scrollTop / docHeight) * 100) : 0;
+        root.style.setProperty('--scroll-pct', pct.toFixed(2) + '%');
+      }
+      window.addEventListener('scroll', updateProgress, { passive: true });
+      updateProgress();
+    })();
+
+    // ── V4.2: Custom cursor ───────────────────────────────────
+    (function () {
+      // Only on pointer:fine devices — no cursor on touch
+      if (!window.matchMedia('(pointer: fine)').matches) return;
+      const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      const cursor = document.createElement('div');
+      cursor.className = 'custom-cursor';
+      document.body.appendChild(cursor);
+
+      // Start far off-screen so cursor isn't visible before first mousemove
+      let mx = -500, my = -500;
+      let cx = -500, cy = -500;
+      let raf;
+
+      function lerp(a, b, t) { return a + (b - a) * t; }
+
+      function loop() {
+        if (!reducedMotion) {
+          cx = lerp(cx, mx, 0.18);
+          cy = lerp(cy, my, 0.18);
+        } else {
+          cx = mx; cy = my;
+        }
+        // offset by half cursor size (10px) to center it on the pointer
+        cursor.style.transform = `translate(calc(${cx}px - 50%), calc(${cy}px - 50%))`;
+        raf = requestAnimationFrame(loop);
+      }
+
+      document.addEventListener('mousemove', (e) => {
+        mx = e.clientX;
+        my = e.clientY;
+        cursor.classList.add('active');
+      });
+
+      document.addEventListener('mouseleave', () => {
+        cursor.classList.remove('active');
+      });
+
+      const hoverTargets = 'a, button, .milestone-card, .servicio-card, .faq-question, label';
+      document.querySelectorAll(hoverTargets).forEach(el => {
+        el.addEventListener('mouseenter', () => cursor.classList.add('is-hover'));
+        el.addEventListener('mouseleave', () => cursor.classList.remove('is-hover'));
+      });
+
+      loop();
+    })();
+
+    // ── V4.5: Hero video fade-in ──────────────────────────────
+    (function () {
+      const heroVideo = document.querySelector('.hero-video');
+      if (!heroVideo) return;
+
+      heroVideo.addEventListener('loadeddata', () => {
+        heroVideo.classList.add('is-ready');
+      });
+
+      heroVideo.addEventListener('error', () => {
+        console.warn('Hero video failed to load, falling back to poster image');
+        heroVideo.style.display = 'none';
+      });
+    })();
+  </script>
+
+</body>
+</html>
