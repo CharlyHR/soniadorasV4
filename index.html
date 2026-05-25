@@ -219,6 +219,12 @@
     .bg-sage-deep .achievement-list li::before { color: var(--brass); }
 
     /* ══════════════════════════════════════════════════════════
+       NAV — ocultar elementos mobile-only en desktop
+    ══════════════════════════════════════════════════════════ */
+    .nav-num,
+    .nav-arrow { display: none; }
+
+    /* ══════════════════════════════════════════════════════════
        LINKS Y BOTONES
     ══════════════════════════════════════════════════════════ */
     .hairline-link {
@@ -1606,6 +1612,7 @@
 
       /* Número brass pequeño como prefijo */
       .header-nav a .nav-num {
+        display: inline;
         font-family: var(--font-body);
         font-weight: 300;
         font-size: 11px;
@@ -1618,6 +1625,7 @@
 
       /* Flecha al hover */
       .header-nav a .nav-arrow {
+        display: inline;
         font-family: var(--font-body);
         font-size: 16px;
         color: var(--brass);
