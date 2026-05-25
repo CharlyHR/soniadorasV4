@@ -1576,13 +1576,54 @@
       .socio-grid--reversed {
         grid-template-columns: 1fr;
       }
-      .socio-grid--reversed .socio-photo,
-      .socio-grid--reversed .socio-info { order: unset; }
+      /* En mobile Martín: foto arriba (order 1), info abajo (order 2) — igual que Paula */
+      .socio-grid--reversed .socio-photo { order: 1; }
+      .socio-grid--reversed .socio-info  { order: 2; }
       .socio-photo { max-width: 340px; }
       .section-header { gap: 4px; }
       .display-quote { padding: 40px 32px; }
       .display-quote p { font-size: clamp(22px, 5vw, 32px); }
       .quote-mark { font-size: clamp(80px, 18vw, 120px); }
+
+      /* Socios mobile — fix corte de texto */
+      .socio-section {
+        overflow: visible;        /* sticky-label ya está oculto en mobile */
+        padding-left: clamp(20px, 5vw, 40px);
+        padding-right: clamp(20px, 5vw, 40px);
+      }
+      .socio-grid.container {
+        width: 100%;
+        max-width: 100%;
+        overflow: hidden;
+      }
+      .socio-info {
+        width: 100%;
+        min-width: 0;             /* evita que el flex/grid hijo desborde */
+        overflow: hidden;
+      }
+      .socio-name {
+        font-size: clamp(28px, 8vw, 44px);
+        word-break: break-word;
+      }
+      .socio-title-line {
+        white-space: normal;
+        word-break: break-word;
+        letter-spacing: 0.10em;  /* reducir tracking en mobile */
+      }
+      .socio-bio {
+        font-size: 15px;
+        word-break: break-word;
+        overflow-wrap: break-word;
+      }
+      .achievement-list li {
+        word-break: break-word;
+        overflow-wrap: break-word;
+      }
+      /* Botón de Martín — texto largo, que rompa línea en mobile */
+      .btn-cta {
+        white-space: normal;
+        text-align: left;
+      }
     }
 
     @media (max-width: 640px) {
