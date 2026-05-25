@@ -377,24 +377,48 @@
       border-color: var(--line-cool);
     }
 
+    /* ══════════════════════════════════════════════════════════
+       HAMBURGER TOGGLE — morfología de 3 líneas → X
+    ══════════════════════════════════════════════════════════ */
     .nav-toggle {
       display: none;
       background: none;
       border: none;
       cursor: pointer;
       flex-direction: column;
-      gap: 5px;
-      padding: 4px;
-      z-index: 201;
+      justify-content: center;
+      align-items: center;
+      gap: 0;
+      padding: 6px;
+      z-index: 301;
+      width: 36px;
+      height: 36px;
+      position: relative;
     }
     .nav-toggle span {
       display: block;
-      width: 22px;
+      position: absolute;
+      width: 24px;
       height: 1px;
       background: var(--bone);
-      transition: background 0.3s ease;
+      transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+                  opacity   0.25s ease,
+                  background 0.3s ease;
+      transform-origin: center;
     }
+    .nav-toggle span:nth-child(1) { transform: translateY(-7px); }
+    .nav-toggle span:nth-child(2) { transform: translateY(0);    }
+    .nav-toggle span:nth-child(3) { transform: translateY(7px);  }
+
+    /* Estado abierto — X */
+    .nav-toggle.is-open span:nth-child(1) { transform: translateY(0) rotate(45deg); }
+    .nav-toggle.is-open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .nav-toggle.is-open span:nth-child(3) { transform: translateY(0) rotate(-45deg); }
+
+    /* En header scrolled — líneas oscuras */
     #site-header.scrolled .nav-toggle span { background: var(--sage-deep); }
+    /* Cuando el menú está abierto, forzar bone siempre */
+    .nav-toggle.is-open span { background: var(--bone) !important; }
 
     /* ══════════════════════════════════════════════════════════
        HERO
@@ -452,7 +476,8 @@
     }
 
     @media (max-width: 768px) {
-      .hero-video { display: none; }
+      /* Video habilitado en mobile — 3 MB, autoplay muted, perfectamente viable */
+      .hero-video { display: block; }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -481,7 +506,7 @@
 
     .hero-wordmark {
       font-family: var(--font-display);
-      font-size: clamp(56px, 8vw, 128px);
+      font-size: clamp(42px, 11vw, 128px);
       text-transform: uppercase;
       color: var(--bone);
       line-height: 1.0;
@@ -489,6 +514,18 @@
       display: block;
       white-space: nowrap;
       margin-bottom: 28px;
+    }
+
+    @media (max-width: 480px) {
+      .hero-wordmark {
+        /* En mobile rompemos en el <wbr> natural entre Shiff y Castro */
+        white-space: normal;
+        word-break: normal;
+        overflow-wrap: normal;
+        font-size: clamp(40px, 14vw, 72px);
+        line-height: 0.92;
+        letter-spacing: 0.02em;
+      }
     }
 
     .hero-wordmark .amp { color: var(--brass); font-style: italic; letter-spacing: 0; }
@@ -522,19 +559,7 @@
       margin-bottom: 64px;
     }
 
-    .hero-established {
-      position: absolute;
-      bottom: 0; left: 0; right: 0;
-      z-index: 4;
-      padding: 16px var(--gutter);
-      border-top: 1px solid rgba(234,230,227,0.12);
-      font-family: var(--font-body);
-      font-weight: 300;
-      font-size: 10px;
-      text-transform: uppercase;
-      letter-spacing: var(--track-wider);
-      color: rgba(234,230,227,0.55);
-    }
+    .hero-established { display: none; }
 
     /* ══════════════════════════════════════════════════════════
        INTRO — I
@@ -1468,7 +1493,7 @@
       .incluye-list { grid-template-columns: 1fr; }
     }
 
-    @media (max-width: 900px) {
+    @media (min-width: 641px) and (max-width: 900px) {
       .servicios-grid { grid-template-columns: 1fr 1fr !important; }
       .servicio-card { border-right: none; border-bottom: 1px solid var(--line-bone); }
       .timeline-grid {
@@ -1504,22 +1529,161 @@
     }
 
     @media (max-width: 640px) {
-      .header-nav { display: none; }
-      .header-nav.mobile-open {
+
+      /* ── Panel — fullscreen, entrada con clip-path ── */
+      .header-nav {
         display: flex;
         flex-direction: column;
         position: fixed;
         inset: 0;
-        background: var(--sage-deep);
+        background: #1e2820;   /* más oscuro que sage-deep, más presencia */
         z-index: 200;
         justify-content: center;
-        align-items: center;
-        gap: 32px;
+        align-items: flex-start;
+        padding: 0 clamp(32px, 8vw, 56px);
+        pointer-events: none;
+        clip-path: circle(0% at calc(100% - 30px) 30px);
+        transition: clip-path 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+        gap: 0;
+        overflow: hidden;
       }
-      .header-nav.mobile-open a { font-size: 14px; color: var(--bone); }
+
+      /* Grano sutil */
+      .header-nav::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.35 0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E");
+        pointer-events: none;
+        z-index: 0;
+      }
+
+      /* Línea decorativa vertical brass — extremo derecho */
+      .header-nav::after {
+        content: '';
+        position: absolute;
+        right: clamp(32px, 8vw, 56px);
+        top: 15%;
+        bottom: 15%;
+        width: 1px;
+        background: linear-gradient(to bottom, transparent, var(--brass) 30%, var(--brass) 70%, transparent);
+        opacity: 0.20;
+        pointer-events: none;
+        z-index: 0;
+      }
+
+      /* Panel abierto */
+      .header-nav.mobile-open {
+        clip-path: circle(160% at calc(100% - 30px) 30px);
+        pointer-events: all;
+      }
+
+      /* Links */
+      .header-nav a {
+        position: relative;
+        z-index: 1;
+        width: 100%;
+        font-family: var(--font-display);
+        font-size: clamp(30px, 9vw, 42px);
+        color: rgba(234,230,227,0.75);
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+        line-height: 1;
+        padding: 18px 0;
+        border-bottom: 1px solid rgba(234,230,227,0.07);
+        display: flex;
+        align-items: baseline;
+        gap: 14px;
+        opacity: 0;
+        transform: translateX(-20px);
+        transition: opacity 0.45s ease, transform 0.45s ease,
+                    color 0.25s ease;
+        text-shadow: none;
+        counter-increment: nav-counter;
+      }
+      .header-nav a::after { display: none; }
+      .header-nav a:first-child { border-top: 1px solid rgba(234,230,227,0.07); }
+
+      /* Número brass pequeño como prefijo */
+      .header-nav a .nav-num {
+        font-family: var(--font-body);
+        font-weight: 300;
+        font-size: 11px;
+        letter-spacing: 0.18em;
+        color: var(--brass);
+        opacity: 0.8;
+        flex-shrink: 0;
+        margin-bottom: 2px;
+      }
+
+      /* Flecha al hover */
+      .header-nav a .nav-arrow {
+        font-family: var(--font-body);
+        font-size: 16px;
+        color: var(--brass);
+        margin-left: auto;
+        opacity: 0;
+        transform: translateX(-8px);
+        transition: opacity 0.22s ease, transform 0.22s ease;
+      }
+
+      .header-nav a:hover {
+        color: var(--bone);
+      }
+      .header-nav a:hover .nav-arrow {
+        opacity: 1;
+        transform: translateX(0);
+      }
+
+      /* CTA Agendar — distinto, al pie */
+      .header-nav .nav-cta {
+        margin-top: 32px;
+        border-top: none;
+        border-bottom: none;
+        border: 1px solid rgba(201,168,117,0.50);
+        color: var(--brass);
+        font-size: 11px;
+        font-family: var(--font-body);
+        font-weight: 500;
+        letter-spacing: 0.20em;
+        text-transform: uppercase;
+        padding: 14px 24px;
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        width: auto;
+        transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+      }
+      .header-nav .nav-cta .nav-num { display: none; }
+      .header-nav .nav-cta .nav-arrow {
+        margin-left: 0;
+        opacity: 1;
+        transform: none;
+        font-size: 13px;
+      }
+      .header-nav .nav-cta:hover {
+        background: var(--brass);
+        color: #1e2820;
+        border-color: var(--brass);
+      }
+
+      /* Stagger entrada — slide desde izquierda */
+      .header-nav.mobile-open a:nth-child(1) { opacity: 1; transform: none; transition-delay: 0.15s; }
+      .header-nav.mobile-open a:nth-child(2) { opacity: 1; transform: none; transition-delay: 0.21s; }
+      .header-nav.mobile-open a:nth-child(3) { opacity: 1; transform: none; transition-delay: 0.27s; }
+      .header-nav.mobile-open a:nth-child(4) { opacity: 1; transform: none; transition-delay: 0.33s; }
+      .header-nav.mobile-open a:nth-child(5) { opacity: 1; transform: none; transition-delay: 0.39s; }
+      .header-nav.mobile-open a:nth-child(6) { opacity: 1; transform: none; transition-delay: 0.45s; }
+
       .nav-toggle { display: flex; }
 
       .hero-ctas { flex-direction: column; gap: 12px; }
+
+      /* CTAs del hero en mobile — texto #EAE6E3 puro, máxima legibilidad */
+      .hero-ctas .btn-outline {
+        color: #EAE6E3;
+        border-color: rgba(234, 230, 227, 0.75);
+      }
       .footer-bottom { flex-direction: column; align-items: flex-start; }
       .contacto-grid { grid-template-columns: 1fr; }
       .contacto-cta-wrap { padding: 40px 32px; }
@@ -1531,12 +1695,130 @@
         padding: 20px 0;
         border-right: none;
         border-bottom: 1px solid var(--line-cool);
-        text-align: left;
+        text-align: center;
+        align-items: center;
       }
-      .numero-item:first-child { padding-top: 0; }
+      .numero-item:first-child { padding-top: 0; padding-left: 0; text-align: center; align-items: center; }
+
+      /* ── TRAYECTORIA TIMELINE — mobile ─────────────────────── */
+      /* 1 columna, layout de línea de tiempo vertical con trazo brass */
+      .timeline-grid {
+        grid-template-columns: 1fr !important;
+        gap: 0;
+        position: relative;
+        padding-left: 24px;
+      }
+
+      /* Línea vertical continua a la izquierda */
+      .timeline-grid::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 12px;
+        bottom: 12px;
+        width: 1px;
+        background: linear-gradient(
+          to bottom,
+          transparent,
+          var(--brass) 8%,
+          var(--brass) 92%,
+          transparent
+        );
+        opacity: 0.45;
+      }
+
+      .milestone-card {
+        background: transparent;
+        border: none;
+        border-bottom: 1px solid rgba(234,230,227,0.09);
+        padding: 24px 0 24px 20px;
+        gap: 8px;
+        position: relative;
+      }
+      .milestone-card:last-child { border-bottom: none; }
+
+      /* Punto brass en la línea vertical */
+      .milestone-card::before {
+        content: '';
+        position: absolute;
+        left: -28px;
+        top: 28px;
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: var(--brass);
+        opacity: 0.85;
+      }
+
+      .milestone-year { font-size: 12px; letter-spacing: 0.18em; }
+      .milestone-text { font-size: 14px; line-height: 1.7; }
       .numero-item:last-child { border-bottom: none; }
       .numero-item:nth-child(3),
       .numero-item:nth-child(4) { border-top: none; padding-top: 20px; }
+
+      /* ── SERVICIOS — mobile ─────────────────────────────────── */
+      /* 1 columna: cada card ocupa todo el ancho, se lee de corrido */
+      .servicios-grid {
+        grid-template-columns: 1fr !important;
+        border: none;
+        gap: 0;
+        margin-bottom: 32px;
+      }
+
+      /* Cards apiladas con borde inferior como separador */
+      .servicio-card {
+        border-right: none;
+        border-left: none;
+        border-top: 1px solid var(--line-bone);
+        border-bottom: none;
+        padding: 28px 0;
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: auto;
+        gap: 0;
+        background: transparent;
+      }
+      .servicio-card:first-child { border-top: none; padding-top: 0; }
+      .servicio-card:hover { background: transparent; border-left: none; }
+
+      /* Acento lateral izquierdo: línea brass en vez del borde-left original */
+      .servicio-card { padding-left: 20px; border-left: 2px solid var(--brass) !important; }
+      .servicio-card:first-child { border-top: none; }
+
+      /* Número: mismo estilo, más espacio */
+      .servicio-idx { margin-bottom: 14px; }
+
+      /* Nombre: más grande, legible en mobile */
+      .servicio-nombre {
+        font-size: 20px;
+        line-height: 1.2;
+        margin-bottom: 14px;
+      }
+
+      .servicio-rule { margin-bottom: 12px; }
+
+      .servicio-desc { font-size: 14px; line-height: 1.7; }
+
+      /* ¿Qué incluye? — columna simple */
+      .servicios-incluye {
+        grid-template-columns: 1fr !important;
+        gap: 16px;
+        padding-top: 24px;
+        margin-bottom: 32px;
+      }
+
+      .incluye-title { margin-bottom: 4px; }
+
+      .incluye-list {
+        grid-template-columns: 1fr !important;
+      }
+
+      .incluye-list li { padding: 10px 0 10px 20px; font-size: 13px; }
+
+      /* CTA alineado a la izquierda, full width */
+      .servicios-cta { flex-direction: column; align-items: flex-start; }
+
+      .btn-servicios-cta { width: 100%; justify-content: space-between; }
     }
 
     /* ══════════════════════════════════════════════════════════
@@ -1885,13 +2167,13 @@
     <a href="#" class="header-wordmark">Shiff <span class="amp">&amp;</span> Castro</a>
 
     <nav class="header-nav" id="main-nav">
-      <a href="#hero">Inicio</a>
-      <a href="#intro">Quiénes Somos</a>
-      <a href="#historia">Nuestra Historia</a>
-      <a href="#servicios">Servicios</a>
-      <a href="#contacto">Contacto</a>
+      <a href="#hero"><span class="nav-num">01</span>Inicio<span class="nav-arrow">→</span></a>
+      <a href="#intro"><span class="nav-num">02</span>Quiénes Somos<span class="nav-arrow">→</span></a>
+      <a href="#historia"><span class="nav-num">03</span>Nuestra Historia<span class="nav-arrow">→</span></a>
+      <a href="#servicios"><span class="nav-num">04</span>Servicios<span class="nav-arrow">→</span></a>
+      <a href="#contacto"><span class="nav-num">05</span>Contacto<span class="nav-arrow">→</span></a>
       <!-- Calendly: https://calendly.com/paulashiff-estudio -->
-      <a href="https://calendly.com/paulashiff-estudio" target="_blank" rel="noopener" class="nav-cta">Agendar</a>
+      <a href="https://calendly.com/paulashiff-estudio" target="_blank" rel="noopener" class="nav-cta"><span class="nav-num">→</span>Agendar consulta<span class="nav-arrow">→</span></a>
     </nav>
 
     <button class="nav-toggle" id="nav-toggle" aria-label="Menú">
@@ -1931,7 +2213,7 @@
 
     <div class="hero-content">
       <span class="hero-wordmark">
-        Shiff<span class="amp">&amp;</span>Castro
+        Shiff<span class="amp">&amp;</span><wbr>Castro
       </span>
 
       <p class="hero-inscription">Estudio Jurídico Especializado en Derecho Reproductivo y Salud en general.</p>
@@ -2580,11 +2862,6 @@
         </nav>
 
         <div class="footer-legal">
-          <p>Estudio Jurídico Especializado</p>
-          <p>en Derecho Reproductivo y Salud</p>
-          <br />
-          <p>Argentina · Ejercicio profesional</p>
-          <p>regulado por el Colegio de Abogados</p>
         </div>
 
       </div>
@@ -2611,9 +2888,23 @@
     // ── Mobile nav ────────────────────────────────────────────
     const navToggle = document.getElementById('nav-toggle');
     const mainNav   = document.getElementById('main-nav');
-    navToggle.addEventListener('click', () => mainNav.classList.toggle('mobile-open'));
+
+    function toggleNav(forceClose) {
+      const isOpen = mainNav.classList.contains('mobile-open');
+      if (forceClose || isOpen) {
+        mainNav.classList.remove('mobile-open');
+        navToggle.classList.remove('is-open');
+        document.body.style.overflow = '';
+      } else {
+        mainNav.classList.add('mobile-open');
+        navToggle.classList.add('is-open');
+        document.body.style.overflow = 'hidden'; /* bloquea scroll del body */
+      }
+    }
+
+    navToggle.addEventListener('click', () => toggleNav(false));
     mainNav.querySelectorAll('a').forEach(a =>
-      a.addEventListener('click', () => mainNav.classList.remove('mobile-open'))
+      a.addEventListener('click', () => toggleNav(true))
     );
 
     // ── FAQ accordion ─────────────────────────────────────────
