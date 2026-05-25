@@ -1102,12 +1102,67 @@
       gap: 24px;
     }
 
+    /* ── btn-cta — botón de acción principal, reutilizable ── */
+    .btn-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      font-family: var(--font-body);
+      font-weight: 500;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      cursor: pointer;
+      text-decoration: none;
+      position: relative;
+      overflow: hidden;
+      transition: color var(--t-base) var(--ease);
+      white-space: nowrap;
+    }
+    .btn-cta .arrow {
+      font-size: 13px;
+      transition: transform var(--t-fast) var(--ease);
+      position: relative; z-index: 1;
+    }
+    .btn-cta:hover .arrow { transform: translateX(5px); }
+    .btn-cta span:not(.arrow) { position: relative; z-index: 1; }
+    .btn-cta::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      transform: translateX(-101%);
+      transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+      z-index: 0;
+    }
+    .btn-cta:hover::before { transform: translateX(0); }
+
+    /* Variante sobre fondos oscuros (sage, sage-deep) — bone sólido */
+    .btn-cta--light {
+      background: var(--bone);
+      color: var(--sage-deep);
+      border: none;
+      padding: 15px 32px;
+    }
+    .btn-cta--light::before { background: var(--brass); }
+    .btn-cta--light:hover { color: var(--bone); }
+
+    /* Variante sobre fondos claros (paper, bone) — sage sólido */
+    .btn-cta--dark {
+      background: var(--sage-deep);
+      color: var(--bone) !important;
+      border: none;
+      padding: 15px 32px;
+    }
+    .btn-cta--dark::before { background: var(--brass); }
+    .btn-cta--dark:hover { color: var(--bone) !important; }
+
+    /* Alias para no romper el btn-servicios-cta existente */
     .btn-servicios-cta {
       display: inline-flex;
       align-items: center;
       gap: 14px;
       font-family: var(--font-body);
-      font-weight: 300;
+      font-weight: 500;
       font-size: 11px;
       text-transform: uppercase;
       letter-spacing: var(--track-wider);
@@ -1121,7 +1176,6 @@
       overflow: hidden;
       transition: color var(--t-fast) var(--ease);
     }
-
     .btn-servicios-cta::before {
       content: '';
       position: absolute;
@@ -1131,12 +1185,9 @@
       transition: transform var(--t-base) var(--ease);
       z-index: 0;
     }
-
     .btn-servicios-cta:hover::before { transform: translateX(0); }
     .btn-servicios-cta:hover { color: var(--bone); }
-
     .btn-servicios-cta span { position: relative; z-index: 1; }
-
     .btn-servicios-cta .arrow {
       font-size: 14px;
       transition: transform var(--t-fast) var(--ease);
@@ -2227,10 +2278,7 @@
       <p class="hero-inscription">Estudio Jurídico Especializado en Derecho Reproductivo y Salud en general.</p>
 
       <div class="hero-ctas">
-        <!-- TODO: Martín probablemente necesita Calendly propio. Confirmar con cliente. -->
-        <a href="https://calendly.com/paulashiff-estudio" target="_blank" rel="noopener" class="btn-outline">Agendar con Paula</a>
-        <!-- TODO: Martín probablemente necesita Calendly propio. Confirmar con cliente. -->
-        <a href="https://calendly.com/paulashiff-estudio" target="_blank" rel="noopener" class="btn-outline">Agendar con Martín</a>
+        <a href="#contacto" class="btn-outline">Agendar una consulta</a>
       </div>
     </div>
 
@@ -2263,7 +2311,7 @@
         </p>
         <div class="intro-links">
           <!-- TODO: Martín probablemente necesita Calendly propio. Confirmar con cliente. -->
-          <a href="https://calendly.com/paulashiff-estudio" target="_blank" rel="noopener" class="hairline-link">→ Agendar Consulta</a>
+          <a href="https://calendly.com/paulashiff-estudio" target="_blank" rel="noopener" class="btn-cta btn-cta--dark"><span>Agendar Consulta</span><span class="arrow">→</span></a>
           <a href="#servicios" class="hairline-link">→ Conocé Nuestros Servicios</a>
         </div>
       </div>
@@ -2360,9 +2408,7 @@
           </ul>
 
           <!-- TODO: Martín probablemente necesita Calendly propio. Confirmar con cliente. -->
-          <a href="https://calendly.com/paulashiff-estudio" target="_blank" rel="noopener" class="hairline-link">
-            Agendar Asesoría en Fertilidad →
-          </a>
+          <a href="https://calendly.com/paulashiff-estudio" target="_blank" rel="noopener" class="btn-cta btn-cta--light"><span>Agendar Asesoría en Fertilidad</span><span class="arrow">→</span></a>
         </div>
 
       </div>
@@ -2380,7 +2426,7 @@
           <span class="socio-title-line">Abogado · UBA · Especialista en Amparos de Salud</span>
 
           <p class="socio-bio">
-            Martín Castro es abogado UBA especializado en Amparos de Salud. Interviene cuando el sistema niega cobertura, demora tratamientos o vulnera derechos de pacientes. Con más de 11 años de experiencia, conoce el sistema por dentro y sabe exactamente dónde apretar.
+            Martín Castro es abogado UBA especializado en Amparos de Salud. Interviene cuando el sistema niega cobertura, demora tratamientos o vulnera derechos de pacientes. Con más de 11 años de experiencia, conoce el sistema por dentro y sabe exactamente dónde accionar.
           </p>
 
           <span class="logros-title">Lo que Martín ha logrado</span>
@@ -2394,9 +2440,7 @@
           </ul>
 
           <!-- TODO: Martín probablemente necesita Calendly propio. Confirmar con cliente. -->
-          <a href="https://calendly.com/paulashiff-estudio" target="_blank" rel="noopener" class="hairline-link">
-            AGENDÁ TU CONSULTA para reclamos de reafiliación y salud en general con Martín →
-          </a>
+          <a href="https://calendly.com/paulashiff-estudio" target="_blank" rel="noopener" class="btn-cta btn-cta--dark"><span>Agendá tu consulta para reclamos de reafiliación y salud en general con Martín</span><span class="arrow">→</span></a>
         </div>
 
         <div class="socio-photo photo-wrap reveal reveal-d1">
@@ -2435,7 +2479,7 @@
 
       <div class="container reveal" style="max-width: var(--container); margin-bottom: clamp(20px, 3vw, 32px);">
         <span class="eyebrow eyebrow--bone">05 — Trayectoria</span>
-        <h2 class="display" style="font-size: clamp(22px, 2.8vw, 36px); color: var(--bone); margin-top: 8px; text-transform: uppercase; letter-spacing: 0.05em;">Una Década en el Campo</h2>
+        <h2 class="display" style="font-size: clamp(22px, 2.8vw, 36px); color: var(--bone); margin-top: 8px; text-transform: uppercase; letter-spacing: 0.05em;">Una Década en el Rubro</h2>
         <p style="font-family: var(--font-body); font-weight: 300; font-size: 15px; color: rgba(234,230,227,0.78); max-width: 620px; margin-top: 18px; line-height: 1.75; letter-spacing: 0.03em;">Lo que empezó como una inquietud se convirtió en el estudio de referencia en Derecho Reproductivo y Salud del país.</p>
       </div>
 
@@ -2513,9 +2557,7 @@
         </ul>
 
         <!-- TODO: Martín probablemente necesita Calendly propio. Confirmar con cliente. -->
-        <a href="https://calendly.com/paulashiff-estudio" target="_blank" rel="noopener" class="hairline-link">
-          Agendá tu Consulta →
-        </a>
+        <a href="https://calendly.com/paulashiff-estudio" target="_blank" rel="noopener" class="btn-cta btn-cta--light"><span>Agendá tu Consulta</span><span class="arrow">→</span></a>
       </div>
 
     </div>
